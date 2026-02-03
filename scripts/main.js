@@ -51,26 +51,59 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Close dropdown when clicking outside
-    document.addEventListener('click', function(event) {
-        const dropdowns = document.querySelectorAll('.dropdown');
-        dropdowns.forEach(dropdown => {
-            if (!dropdown.contains(event.target)) {
-                dropdown.classList.remove('active');
-            }
-        });
+    // Dropdown menu functionality - enhanced for GitHub Pages compatibility
+    const dropdowns = document.querySelectorAll('.dropdown');
+    
+    dropdowns.forEach(dropdown => {
+        const trigger = dropdown.querySelector('a');
+        const menu = dropdown.querySelector('.dropdown-menu');
+        
+        if (trigger && menu) {
+            // Show dropdown on hover (desktop) - backup to CSS
+            dropdown.addEventListener('mouseenter', function() {
+                if (window.innerWidth >= 768) {
+                    dropdown.classList.add('active');
+                }
+            });
+            
+            dropdown.addEventListener('mouseleave', function() {
+                if (window.innerWidth >= 768) {
+                    setTimeout(() => {
+                        if (!dropdown.matches(':hover')) {
+                            dropdown.classList.remove('active');
+                        }
+                    }, 150);
+                }
+            });
+            
+            // Toggle dropdown on click (mobile and desktop)
+            // Use a separate handler that doesn't prevent navigation
+            let clickTimeout;
+            trigger.addEventListener('click', function(e) {
+                // On mobile, prevent navigation and toggle dropdown
+                if (window.innerWidth < 768) {
+                    e.preventDefault();
+                    dropdown.classList.toggle('active');
+                } else {
+                    // On desktop, allow navigation but also show dropdown briefly
+                    dropdown.classList.add('active');
+                    clearTimeout(clickTimeout);
+                    clickTimeout = setTimeout(() => {
+                        dropdown.classList.remove('active');
+                    }, 2000);
+                }
+            });
+        }
     });
     
-    // Toggle dropdown on click (for better mobile support)
-    const dropdownTriggers = document.querySelectorAll('.dropdown > a');
-    dropdownTriggers.forEach(trigger => {
-        trigger.addEventListener('click', function(e) {
-            if (window.innerWidth < 768) {
-                e.preventDefault();
-                const dropdown = this.parentElement;
-                dropdown.classList.toggle('active');
-            }
-        });
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+        const clickedInsideDropdown = event.target.closest('.dropdown');
+        if (!clickedInsideDropdown) {
+            dropdowns.forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+        }
     });
 });
 
