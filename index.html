@@ -25,10 +25,21 @@
                 <div class="flex items-center">
                     <a href="index.html" class="text-2xl font-bold text-indigo-600">MAFBench</a>
                 </div>
-                <div class="hidden md:flex space-x-8">
+                <div class="hidden md:flex space-x-8 items-center">
                     <a href="index.html" class="text-gray-900 font-medium hover:text-indigo-600">Home</a>
                     <a href="design.html" class="text-gray-600 hover:text-indigo-600">Why Design Matters</a>
-                    <a href="architecture.html" class="text-gray-600 hover:text-indigo-600">Architecture Guide</a>
+                    <div class="dropdown relative">
+                        <a href="architecture/index.html" class="text-gray-600 hover:text-indigo-600 flex items-center">
+                            Architecture Guide
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="architecture/index.html">Overview</a>
+                            <a href="architecture/single-agent.html">Single-Agent Characteristics</a>
+                            <a href="architecture/multi-agent.html">Multi-Agent Characteristics</a>
+                            <a href="architecture/environment.html">Environment</a>
+                        </div>
+                    </div>
                     <a href="results.html" class="text-gray-600 hover:text-indigo-600">Results</a>
                     <a href="mafbench.html" class="text-gray-600 hover:text-indigo-600">MAFBench</a>
                     <a href="paper.html" class="text-gray-600 hover:text-indigo-600">Paper & Code</a>
@@ -44,7 +55,15 @@
             <div class="px-4 py-4 space-y-3">
                 <a href="index.html" class="block text-gray-900 font-medium">Home</a>
                 <a href="design.html" class="block text-gray-600">Why Design Matters</a>
-                <a href="architecture.html" class="block text-gray-600">Architecture Guide</a>
+                <div class="pl-2 border-l-2 border-gray-200">
+                    <a href="architecture/index.html" class="block text-gray-900 font-medium mb-2">Architecture Guide</a>
+                    <div class="pl-4 space-y-2">
+                        <a href="architecture/index.html" class="block text-gray-600 text-sm">Overview</a>
+                        <a href="architecture/single-agent.html" class="block text-gray-600 text-sm">Single-Agent Characteristics</a>
+                        <a href="architecture/multi-agent.html" class="block text-gray-600 text-sm">Multi-Agent Characteristics</a>
+                        <a href="architecture/environment.html" class="block text-gray-600 text-sm">Environment</a>
+                    </div>
+                </div>
                 <a href="results.html" class="block text-gray-600">Results</a>
                 <a href="mafbench.html" class="block text-gray-600">MAFBench</a>
                 <a href="paper.html" class="block text-gray-600">Paper & Code</a>
@@ -109,6 +128,12 @@
     <!-- Visual Story Section -->
     <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div class="max-w-7xl mx-auto">
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-8 rounded">
+                <p class="text-sm text-gray-700">
+                    <i class="fas fa-info-circle text-blue-600 mr-2"></i>
+                    <strong>Note:</strong> All numerical values on this page should be verified against the paper PDF for the most accurate and up-to-date results.
+                </p>
+            </div>
             <h2 class="text-4xl font-bold text-center text-gray-900 mb-16">How Architecture Shapes Performance</h2>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 mb-16">
@@ -308,7 +333,7 @@
             <h2 class="text-4xl font-bold text-white mb-6">Want to Design Better Multi-Agent Systems?</h2>
             <p class="text-xl text-indigo-100 mb-8">Learn the architectural principles that make or break AI agent performance.</p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="architecture.html" class="inline-block px-8 py-4 bg-white text-indigo-600 rounded-lg font-semibold text-lg hover:bg-gray-100 transition shadow-lg">
+                <a href="architecture/index.html" class="inline-block px-8 py-4 bg-white text-indigo-600 rounded-lg font-semibold text-lg hover:bg-gray-100 transition shadow-lg">
                     Explore the Architecture Guide
                 </a>
                 <a href="results.html" class="inline-block px-8 py-4 bg-indigo-500 text-white rounded-lg font-semibold text-lg hover:bg-indigo-400 transition">
@@ -337,7 +362,7 @@
                 <div>
                     <h4 class="text-white font-semibold mb-4">Learn</h4>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="architecture.html" class="hover:text-white">Architecture Guide</a></li>
+                        <li><a href="architecture/index.html" class="hover:text-white">Architecture Guide</a></li>
                         <li><a href="results.html" class="hover:text-white">Results</a></li>
                         <li><a href="blog.html" class="hover:text-white">Blog</a></li>
                     </ul>

@@ -16,10 +16,21 @@
                 <div class="flex items-center">
                     <a href="index.html" class="text-2xl font-bold text-indigo-600">MAFBench</a>
                 </div>
-                <div class="hidden md:flex space-x-8">
+                <div class="hidden md:flex space-x-8 items-center">
                     <a href="index.html" class="text-gray-600 hover:text-indigo-600">Home</a>
                     <a href="design.html" class="text-gray-600 hover:text-indigo-600">Why Design Matters</a>
-                    <a href="architecture.html" class="text-gray-600 hover:text-indigo-600">Architecture Guide</a>
+                    <div class="dropdown relative">
+                        <a href="architecture/index.html" class="text-gray-600 hover:text-indigo-600 flex items-center">
+                            Architecture Guide
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="architecture/index.html">Overview</a>
+                            <a href="architecture/single-agent.html">Single-Agent Characteristics</a>
+                            <a href="architecture/multi-agent.html">Multi-Agent Characteristics</a>
+                            <a href="architecture/environment.html">Environment</a>
+                        </div>
+                    </div>
                     <a href="results.html" class="text-gray-600 hover:text-indigo-600">Results</a>
                     <a href="mafbench.html" class="text-gray-900 font-medium hover:text-indigo-600">MAFBench</a>
                     <a href="paper.html" class="text-gray-600 hover:text-indigo-600">Paper & Code</a>
@@ -35,7 +46,15 @@
             <div class="px-4 py-4 space-y-3">
                 <a href="index.html" class="block text-gray-600">Home</a>
                 <a href="design.html" class="block text-gray-600">Why Design Matters</a>
-                <a href="architecture.html" class="block text-gray-600">Architecture Guide</a>
+                <div class="pl-2 border-l-2 border-gray-200">
+                    <a href="architecture/index.html" class="block text-gray-900 font-medium mb-2">Architecture Guide</a>
+                    <div class="pl-4 space-y-2">
+                        <a href="architecture/index.html" class="block text-gray-600 text-sm">Overview</a>
+                        <a href="architecture/single-agent.html" class="block text-gray-600 text-sm">Single-Agent Characteristics</a>
+                        <a href="architecture/multi-agent.html" class="block text-gray-600 text-sm">Multi-Agent Characteristics</a>
+                        <a href="architecture/environment.html" class="block text-gray-600 text-sm">Environment</a>
+                    </div>
+                </div>
                 <a href="results.html" class="block text-gray-600">Results</a>
                 <a href="mafbench.html" class="block text-gray-900 font-medium">MAFBench</a>
                 <a href="paper.html" class="block text-gray-600">Paper & Code</a>
@@ -65,156 +84,113 @@
         </div>
     </section>
 
-    <!-- What It Measures -->
-    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+    <!-- Benchmarks -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-200">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-center text-gray-900 mb-16">What MAFBench Measures</h2>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-xl border border-indigo-100">
-                    <div class="w-16 h-16 bg-indigo-600 rounded-lg flex items-center justify-center mb-4">
-                        <i class="fas fa-sitemap text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Orchestration</h3>
-                    <p class="text-gray-600">Measures overhead, latency, and throughput of agent scheduling and execution patterns.</p>
-                </div>
-                
-                <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-xl border border-purple-100">
-                    <div class="w-16 h-16 bg-purple-600 rounded-lg flex items-center justify-center mb-4">
-                        <i class="fas fa-brain text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Memory</h3>
-                    <p class="text-gray-600">Evaluates how frameworks store, retrieve, and share information between agents.</p>
-                </div>
-                
-                <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-8 rounded-xl border border-green-100">
-                    <div class="w-16 h-16 bg-green-600 rounded-lg flex items-center justify-center mb-4">
-                        <i class="fas fa-route text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Planning</h3>
-                    <p class="text-gray-600">Tests reasoning accuracy and efficiency across different planning interfaces.</p>
-                </div>
-                
-                <div class="bg-gradient-to-br from-orange-50 to-red-50 p-8 rounded-xl border border-orange-100">
-                    <div class="w-16 h-16 bg-orange-600 rounded-lg flex items-center justify-center mb-4">
-                        <i class="fas fa-user-tag text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Specialization</h3>
-                    <p class="text-gray-600">Assesses how well frameworks enable agent specialization and role-based behavior.</p>
-                </div>
-                
-                <div class="bg-gradient-to-br from-teal-50 to-cyan-50 p-8 rounded-xl border border-teal-100">
-                    <div class="w-16 h-16 bg-teal-600 rounded-lg flex items-center justify-center mb-4">
-                        <i class="fas fa-network-wired text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Coordination</h3>
-                    <p class="text-gray-600">Evaluates multi-agent coordination success across different communication topologies.</p>
-                </div>
-                
-                <div class="bg-gradient-to-br from-gray-50 to-slate-50 p-8 rounded-xl border border-gray-100">
-                    <div class="w-16 h-16 bg-gray-600 rounded-lg flex items-center justify-center mb-4">
-                        <i class="fas fa-tachometer-alt text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Overhead</h3>
-                    <p class="text-gray-600">Measures framework-level overhead beyond direct LLM calls, including token costs and latency.</p>
-                </div>
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-8 rounded">
+                <p class="text-sm text-gray-700">
+                    <i class="fas fa-info-circle text-blue-600 mr-2"></i>
+                    <strong>Note:</strong> All numerical values and statistics on this page should be verified against the paper PDF for the most accurate and up-to-date results.
+                </p>
+            </div>
+            <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">Benchmarks</h2>
+            <p class="text-lg text-gray-700 mb-8 leading-relaxed text-center max-w-3xl mx-auto">
+                MAFBench integrates established benchmarks to evaluate multi-agent frameworks across key architectural dimensions. Metrics follow original benchmark definitions (Acc.=Accuracy, F1=F1-score, R@5=Recall@5).
+            </p>
+            <div class="bg-gray-50 border border-gray-300 rounded-lg overflow-hidden">
+                <table class="w-full text-sm">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Architectural Dimension</th>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Benchmark</th>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Metrics</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">Orchestration overhead</td>
+                            <td class="px-6 py-4 text-gray-700">Trivial query</td>
+                            <td class="px-6 py-4 text-gray-700">Latency, throughput, tokens</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">Memory architecture</td>
+                            <td class="px-6 py-4 text-gray-700"><a href="https://huggingface.co/datasets/ai-hyz/MemoryAgentBench" target="_blank" class="text-indigo-600 hover:underline">MemoryAgentBench</a></td>
+                            <td class="px-6 py-4 text-gray-700">Acc./F1/R@5</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">Planning interface</td>
+                            <td class="px-6 py-4 text-gray-700">
+                                <a href="https://huggingface.co/datasets/openai/gsm8k" target="_blank" class="text-indigo-600 hover:underline">GSM8K</a>, 
+                                <a href="https://huggingface.co/datasets/tau/commonsense_qa" target="_blank" class="text-indigo-600 hover:underline">CSQA</a>, 
+                                <a href="https://github.com/hendrycks/math" target="_blank" class="text-indigo-600 hover:underline">MATH</a>
+                            </td>
+                            <td class="px-6 py-4 text-gray-700">Accuracy, failures, runtime</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">Specialization conditioning</td>
+                            <td class="px-6 py-4 text-gray-700"><a href="https://fathollahzadeh.github.io/papers/CatDB_VLDB2025.pdf" target="_blank" class="text-indigo-600 hover:underline">CatDB tasks</a></td>
+                            <td class="px-6 py-4 text-gray-700">Precision, recall, F1</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">Coordination topology</td>
+                            <td class="px-6 py-4 text-gray-700">
+                                <a href="https://huggingface.co/datasets/disco-eth/AgentsNet" target="_blank" class="text-indigo-600 hover:underline">AGENTSNET</a> 
+                                (<a href="https://github.com/floriangroetschla/AgentsNet" target="_blank" class="text-indigo-600 hover:underline">Code</a>)
+                            </td>
+                            <td class="px-6 py-4 text-gray-700">Success, rounds, tokens, time</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
 
-    <!-- Why It Matters -->
-    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+    <!-- MAFBench Contributions -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 border-b border-gray-200">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">Why MAFBench Matters</h2>
-            
-            <div class="bg-white rounded-2xl p-12 shadow-lg">
-                <div class="grid md:grid-cols-2 gap-12 items-center">
-                    <div>
-                        <h3 class="text-3xl font-bold text-gray-900 mb-6">Finally Compare Frameworks Fairly</h3>
-                        <p class="text-lg text-gray-600 mb-4">
-                            Existing benchmarks focus on individual capabilities, but real-world performance 
-                            depends on how frameworks integrate and orchestrate these capabilities.
-                        </p>
-                        <p class="text-lg text-gray-600 mb-4">
-                            MAFBench provides a standardized evaluation pipeline that isolates the impact 
-                            of framework-level design choices, enabling meaningful comparisons across 
-                            different architectural paradigms.
-                        </p>
-                        <ul class="space-y-3 text-gray-700">
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-green-600 mr-3 mt-1"></i>
-                                <span>Unified execution pipeline across frameworks</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-green-600 mr-3 mt-1"></i>
-                                <span>Controlled evaluation isolating architectural effects</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-green-600 mr-3 mt-1"></i>
-                                <span>Comprehensive coverage of key dimensions</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="bg-indigo-50 rounded-xl p-8">
-                        <div class="text-center">
-                            <div class="text-6xl font-bold text-indigo-600 mb-4">100×</div>
-                            <p class="text-xl text-gray-700 mb-2">Performance Range</p>
-                            <p class="text-gray-600">Same model, same task, different frameworks</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works -->
-    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-center text-gray-900 mb-16">How It Works</h2>
+            <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">MAFBench Contributions</h2>
             
             <div class="space-y-8">
-                <div class="flex items-start">
-                    <div class="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-xl mr-6 flex-shrink-0">1</div>
-                    <div class="flex-1">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Integrate Existing Benchmarks</h3>
-                        <p class="text-gray-600 text-lg">
-                            MAFBench doesn't reinvent benchmarks. Instead, it integrates established, 
-                            domain-relevant benchmarks (like AGENTSNET for coordination) within a unified execution pipeline.
-                        </p>
-                    </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Unified Execution Pipeline</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        MAFBench provides a standardized agent interface for session-level execution, centralizing configuration of model parameters, session limits, batching, and scoring. This ensures identical conditions across frameworks while isolating architectural effects.
+                    </p>
                 </div>
-                
-                <div class="flex items-start">
-                    <div class="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-xl mr-6 flex-shrink-0">2</div>
-                    <div class="flex-1">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Standardize Execution</h3>
-                        <p class="text-gray-600 text-lg">
-                            All frameworks are evaluated using the same execution protocol, measurement 
-                            methodology, and scoring criteria. This ensures fair, comparable results.
-                        </p>
-                    </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Semantic Evaluation</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        We replace string-based metrics with LLM-based semantic evaluation to handle diverse answer formats, enabling fair comparison across different framework output styles.
+                    </p>
                 </div>
-                
-                <div class="flex items-start">
-                    <div class="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-xl mr-6 flex-shrink-0">3</div>
-                    <div class="flex-1">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Isolate Framework Effects</h3>
-                        <p class="text-gray-600 text-lg">
-                            By fixing the underlying LLM model, MAFBench attributes performance differences 
-                            to framework architecture rather than model quality, revealing true architectural impact.
-                        </p>
-                    </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Transparent Backend Routing</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        For large-scale long-context evaluation, MAFBench introduces transparent backend routing that redirects compatible API calls to alternative providers (e.g., Groq-hosted models), enabling lower-cost evaluation without modifying framework implementations.
+                    </p>
                 </div>
-                
-                <div class="flex items-start">
-                    <div class="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-xl mr-6 flex-shrink-0">4</div>
-                    <div class="flex-1">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Generate Actionable Insights</h3>
-                        <p class="text-gray-600 text-lg">
-                            Results translate directly into architectural design principles and framework-selection 
-                            guidance, helping builders make informed decisions.
-                        </p>
-                    </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Standardized Logging and Reproducibility</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        Results are logged and aggregated using a shared schema that captures accuracy, runtime, and token usage. Model selection, planning modes, and run budgets are centrally configured to ensure reproducibility and cost control.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Topology Rewriting Engine</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        For coordination evaluation, MAFBench implements a topology rewriting engine that transforms base communication graphs into sequential, hierarchical, and centralized structures while preserving agent sets, enabling systematic analysis of how interaction topology affects coordination dynamics.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Isolated Architectural Impact</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        By fixing the underlying LLM model, prompts, and task structure, MAFBench attributes performance differences to framework architecture rather than model quality, revealing true architectural impact on memory, planning, specialization, and coordination.
+                    </p>
                 </div>
             </div>
         </div>
@@ -257,7 +233,7 @@
                 <div>
                     <h4 class="text-white font-semibold mb-4">Learn</h4>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="architecture.html" class="hover:text-white">Architecture Guide</a></li>
+                        <li><a href="architecture/index.html" class="hover:text-white">Architecture Guide</a></li>
                         <li><a href="results.html" class="hover:text-white">Results</a></li>
                         <li><a href="blog.html" class="hover:text-white">Blog</a></li>
                     </ul>

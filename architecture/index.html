@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture Guide | MAFBench</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="../index.html" class="text-2xl font-bold text-indigo-600">MAFBench</a>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="../index.html" class="text-gray-600 hover:text-indigo-600">Home</a>
+                    <a href="../design.html" class="text-gray-600 hover:text-indigo-600">Why Design Matters</a>
+                    <div class="dropdown relative">
+                        <a href="index.html" class="text-gray-900 font-medium hover:text-indigo-600 flex items-center">
+                            Architecture Guide
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="index.html" class="active">Overview</a>
+                            <a href="single-agent.html">Single-Agent Characteristics</a>
+                            <a href="multi-agent.html">Multi-Agent Characteristics</a>
+                            <a href="environment.html">Environment</a>
+                        </div>
+                    </div>
+                    <a href="../results.html" class="text-gray-600 hover:text-indigo-600">Results</a>
+                    <a href="../mafbench.html" class="text-gray-600 hover:text-indigo-600">MAFBench</a>
+                    <a href="../paper.html" class="text-gray-600 hover:text-indigo-600">Paper & Code</a>
+                    <a href="../blog.html" class="text-gray-600 hover:text-indigo-600">Blog</a>
+                    <a href="../about.html" class="text-gray-600 hover:text-indigo-600">About</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden text-gray-600">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 py-4 space-y-3">
+                <a href="../index.html" class="block text-gray-600">Home</a>
+                <a href="../design.html" class="block text-gray-600">Why Design Matters</a>
+                <div class="pl-2 border-l-2 border-gray-200">
+                    <a href="index.html" class="block text-gray-900 font-medium mb-2">Architecture Guide</a>
+                    <div class="pl-4 space-y-2">
+                        <a href="index.html" class="block text-gray-900 font-medium text-sm">Overview</a>
+                        <a href="single-agent.html" class="block text-gray-600 text-sm">Single-Agent Characteristics</a>
+                        <a href="multi-agent.html" class="block text-gray-600 text-sm">Multi-Agent Characteristics</a>
+                        <a href="environment.html" class="block text-gray-600 text-sm">Environment</a>
+                    </div>
+                </div>
+                <a href="../results.html" class="block text-gray-600">Results</a>
+                <a href="../mafbench.html" class="block text-gray-600">MAFBench</a>
+                <a href="../paper.html" class="block text-gray-600">Paper & Code</a>
+                <a href="../blog.html" class="block text-gray-600">Blog</a>
+                <a href="../about.html" class="block text-gray-600">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white border-b border-gray-200">
+        <div class="max-w-5xl mx-auto text-center">
+            <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+                Architecture Guide
+            </h1>
+            <p class="text-xl text-gray-700 leading-relaxed max-w-3xl mx-auto">
+                A systematic guide to the architectural dimensions that define multi-agent LLM systems. 
+                Understand how design choices impact performance, scalability, and coordination.
+            </p>
+        </div>
+    </section>
+
+    <!-- What Are Agents and Frameworks -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-200">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-gray-900 mb-12 text-center">What Are Agents and Frameworks?</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gray-50 border border-gray-200 rounded-lg p-8">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-robot text-indigo-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-gray-900">An Agent</h3>
+                    </div>
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        An autonomous system that can observe its environment, make decisions, and take actions. 
+                        In multi-agent LLM systems, each agent uses a large language model to reason about what to do. 
+                        Agents have roles (what they specialize in), objectives (what they're trying to achieve), 
+                        tools they can use, and memory to store information.
+                    </p>
+                </div>
+                <div class="bg-gray-50 border border-gray-200 rounded-lg p-8">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-sitemap text-indigo-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-gray-900">A Framework</h3>
+                    </div>
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        The system that orchestrates multiple agents, manages how they communicate, and controls 
+                        how they execute tasks. The framework defines the rules: how agents are scheduled, how they 
+                        share information, and how they coordinate. Different frameworks make different architectural 
+                        choices, which dramatically affect performance.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architectural Paradigms Overview -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Architectural Paradigms</h2>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+                    Multi-agent LLM frameworks fall into three main paradigms based on how they structure execution 
+                    and agent interactions. Each paradigm makes different trade-offs between control, flexibility, 
+                    and performance.
+                </p>
+            </div>
+            
+            <!-- Paradigms Grid -->
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <!-- Graph-Based Frameworks -->
+                <div class="bg-white border border-gray-300 rounded-lg p-8 hover:shadow-lg transition">
+                    <div class="flex items-center mb-6">
+                        <div class="w-14 h-14 bg-indigo-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-project-diagram text-indigo-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-gray-900">Graph-Based</h3>
+                    </div>
+                    <p class="text-gray-700 mb-4 leading-relaxed">
+                        Model your system as a workflow graph. Nodes represent agents or steps, edges define flow. 
+                        Execution follows the predefined structure step by step.
+                    </p>
+                    <p class="text-sm text-gray-600 mb-4">
+                        <strong>Best for:</strong> Deterministic workflows, predictable execution, transparent debugging.
+                    </p>
+                    <div class="mb-4">
+                        <p class="text-xs text-gray-500 mb-2">Examples:</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://www.langchain.com/langgraph" target="_blank" class="text-xs text-indigo-600 hover:text-indigo-700 hover:underline">LangGraph</a>
+                            <span class="text-gray-400">•</span>
+                            <a href="https://n8n.io/" target="_blank" class="text-xs text-indigo-600 hover:text-indigo-700 hover:underline">n8n</a>
+                            <span class="text-gray-400">•</span>
+                            <a href="https://www.langflow.org/" target="_blank" class="text-xs text-indigo-600 hover:text-indigo-700 hover:underline">Langflow</a>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden">
+                        <table class="w-full text-xs">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-3 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">Enforces</th>
+                                    <th class="px-3 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">You Control</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-3 py-2 text-gray-700">Workflow structure</td>
+                                    <td class="px-3 py-2 text-gray-700">Node definitions</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2 text-gray-700">Edge execution</td>
+                                    <td class="px-3 py-2 text-gray-700">Memory, data flow</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Role-Based Frameworks -->
+                <div class="bg-white border border-gray-300 rounded-lg p-8 hover:shadow-lg transition">
+                    <div class="flex items-center mb-6">
+                        <div class="w-14 h-14 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-users text-green-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-gray-900">Role-Based</h3>
+                    </div>
+                    <p class="text-gray-700 mb-4 leading-relaxed">
+                        Organize agents around job descriptions. Each agent has a role that defines what they do. 
+                        Coordination emerges from agents following their roles and delegating tasks.
+                    </p>
+                    <p class="text-sm text-gray-600 mb-4">
+                        <strong>Best for:</strong> Flexible tasks, adaptive coordination, role specialization.
+                    </p>
+                    <div class="mb-4">
+                        <p class="text-xs text-gray-500 mb-2">Examples:</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://www.crewai.com/" target="_blank" class="text-xs text-indigo-600 hover:text-indigo-700 hover:underline">CrewAI</a>
+                            <span class="text-gray-400">•</span>
+                            <a href="https://microsoft.github.io/autogen/" target="_blank" class="text-xs text-indigo-600 hover:text-indigo-700 hover:underline">AutoGen</a>
+                            <span class="text-gray-400">•</span>
+                            <a href="https://openai.github.io/openai-agents-python/" target="_blank" class="text-xs text-indigo-600 hover:text-indigo-700 hover:underline">OpenAI Agents</a>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden">
+                        <table class="w-full text-xs">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-3 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">Enforces</th>
+                                    <th class="px-3 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">You Control</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-3 py-2 text-gray-700">Role abstraction</td>
+                                    <td class="px-3 py-2 text-gray-700">Role definitions</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2 text-gray-700">Role interactions</td>
+                                    <td class="px-3 py-2 text-gray-700">Execution order</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- GABM Frameworks -->
+                <div class="bg-white border border-gray-300 rounded-lg p-8 hover:shadow-lg transition">
+                    <div class="flex items-center mb-6">
+                        <div class="w-14 h-14 bg-amber-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-globe text-amber-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-gray-900">GABM</h3>
+                    </div>
+                    <p class="text-gray-700 mb-4 leading-relaxed">
+                        Treat multi-agent systems like simulations. Agents exist in a shared environment and interact 
+                        with it over time. Coordination happens indirectly through environment state.
+                    </p>
+                    <p class="text-sm text-gray-600 mb-4">
+                        <strong>Best for:</strong> Complex simulations, emergent behavior, environment-mediated interactions.
+                    </p>
+                    <div class="mb-4">
+                        <p class="text-xs text-gray-500 mb-2">Examples:</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://github.com/google-deepmind/concordia" target="_blank" class="text-xs text-indigo-600 hover:text-indigo-700 hover:underline">DeepMind Concordia</a>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden">
+                        <table class="w-full text-xs">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-3 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">Enforces</th>
+                                    <th class="px-3 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">You Control</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-3 py-2 text-gray-700">Time-step model</td>
+                                    <td class="px-3 py-2 text-gray-700">Agent behaviors</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2 text-gray-700">Environment-mediated</td>
+                                    <td class="px-3 py-2 text-gray-700">Environment rules</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Table -->
+            <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                <table class="w-full text-sm">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Paradigm</th>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Execution model</th>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Coordination style</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900">Graph-based</td>
+                            <td class="px-6 py-4 text-gray-700">Follows predefined workflow graph</td>
+                            <td class="px-6 py-4 text-gray-700">Determined at design time</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900">Role-based</td>
+                            <td class="px-6 py-4 text-gray-700">Role-conditioned reasoning and delegation</td>
+                            <td class="px-6 py-4 text-gray-700">Emerges from role interactions</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900">GABM</td>
+                            <td class="px-6 py-4 text-gray-700">Time-step simulation with environment</td>
+                            <td class="px-6 py-4 text-gray-700">Mediated through shared environment state</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Design Dimensions Overview -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">Design Dimensions</h2>
+            <p class="text-lg text-gray-700 mb-8 leading-relaxed">
+                These dimensions define multi-agent system architecture. Each dimension represents a fundamental 
+                design choice that can be fixed by the framework paradigm or configured by the system designer. 
+                We organize them into three categories: how individual agents work, how agents interact, and 
+                how the system environment is structured.
+            </p>
+            
+            <div class="grid md:grid-cols-3 gap-8 mt-8">
+                <!-- Single-Agent Characteristics -->
+                <div class="bg-white border border-gray-300 rounded-lg p-8 hover:shadow-lg transition">
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-4">Single-Agent Characteristics</h3>
+                    <p class="text-gray-700 mb-6 leading-relaxed">
+                        These dimensions control how individual agents are designed and how they behave. They determine 
+                        what agents know, how they think, and what actions they can take.
+                    </p>
+                    <ul class="space-y-3 text-sm text-gray-700 mb-6">
+                        <li class="flex items-start">
+                            <span class="text-indigo-600 mr-2">•</span>
+                            <span><strong>Behavioral Specification:</strong> How agent behavior is specified (roles, goals, planning)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-indigo-600 mr-2">•</span>
+                            <span><strong>Storage Architecture:</strong> How agents remember (LTM, STM, EM, WM, EK)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-indigo-600 mr-2">•</span>
+                            <span><strong>Tool Execution:</strong> Where tool execution authority resides</span>
+                        </li>
+                    </ul>
+                    <a href="single-agent.html" class="inline-block px-6 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition">
+                        Learn More →
+                    </a>
+                </div>
+
+                <!-- Multi-Agent Characteristics -->
+                <div class="bg-white border border-gray-300 rounded-lg p-8 hover:shadow-lg transition">
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-4">Multi-Agent Characteristics</h3>
+                    <p class="text-gray-700 mb-6 leading-relaxed">
+                        These dimensions control how agents interact with each other. They determine who can talk to 
+                        whom, how information flows, and whether agents can collaborate on decisions.
+                    </p>
+                    <ul class="space-y-3 text-sm text-gray-700 mb-6">
+                        <li class="flex items-start">
+                            <span class="text-indigo-600 mr-2">•</span>
+                            <span><strong>Network Topology:</strong> How agents are connected and structured</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-indigo-600 mr-2">•</span>
+                            <span><strong>Communication Pattern:</strong> How information moves between agents</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-indigo-600 mr-2">•</span>
+                            <span><strong>Collaboration:</strong> Mechanisms for joint coordination</span>
+                        </li>
+                    </ul>
+                    <a href="multi-agent.html" class="inline-block px-6 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition">
+                        Learn More →
+                    </a>
+                </div>
+
+                <!-- Environment -->
+                <div class="bg-white border border-gray-300 rounded-lg p-8 hover:shadow-lg transition">
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-4">Environment</h3>
+                    <p class="text-gray-700 mb-6 leading-relaxed">
+                        This dimension determines whether system execution is mediated through an explicit shared world 
+                        state or through agent-local and developer-managed state.
+                    </p>
+                    <ul class="space-y-3 text-sm text-gray-700 mb-6">
+                        <li class="flex items-start">
+                            <span class="text-indigo-600 mr-2">•</span>
+                            <span><strong>World State:</strong> Explicit shared environment state</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-indigo-600 mr-2">•</span>
+                            <span><strong>Grounded Variables:</strong> Variables representing system state</span>
+                        </li>
+                    </ul>
+                    <a href="environment.html" class="inline-block px-6 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition">
+                        Learn More →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">MAFBench</h3>
+                    <p class="text-sm">A unified benchmark for evaluating multi-agent LLM frameworks.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="../paper.html" class="hover:text-white">Paper</a></li>
+                        <li><a href="../mafbench.html" class="hover:text-white">Benchmark</a></li>
+                        <li><a href="https://github.com/CoDS-GCS/MAFBench" target="_blank" class="hover:text-white">GitHub</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Learn</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html" class="hover:text-white">Architecture Guide</a></li>
+                        <li><a href="../results.html" class="hover:text-white">Results</a></li>
+                        <li><a href="../blog.html" class="hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Connect</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="../about.html" class="hover:text-white">About</a></li>
+                        <li><a href="https://github.com/CoDS-GCS/MAFBench" target="_blank" class="hover:text-white">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-sm">
+                <p>&copy; 2024 MAFBench. Research by Concordia University.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../scripts/main.js"></script>
+</body>
+</html>
+

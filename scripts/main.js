@@ -39,5 +39,38 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.animate-on-scroll').forEach(el => {
         observer.observe(el);
     });
+    
+    // Set active state for dropdown menu items based on current page
+    const currentPath = window.location.pathname;
+    const dropdownLinks = document.querySelectorAll('.dropdown-menu a');
+    
+    dropdownLinks.forEach(link => {
+        const linkPath = new URL(link.href).pathname;
+        if (currentPath.includes(linkPath) || (currentPath.endsWith('/') && linkPath.includes('index.html'))) {
+            link.classList.add('active');
+        }
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+        const dropdowns = document.querySelectorAll('.dropdown');
+        dropdowns.forEach(dropdown => {
+            if (!dropdown.contains(event.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+    });
+    
+    // Toggle dropdown on click (for better mobile support)
+    const dropdownTriggers = document.querySelectorAll('.dropdown > a');
+    dropdownTriggers.forEach(trigger => {
+        trigger.addEventListener('click', function(e) {
+            if (window.innerWidth < 768) {
+                e.preventDefault();
+                const dropdown = this.parentElement;
+                dropdown.classList.toggle('active');
+            }
+        });
+    });
 });
 

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single-Agent Characteristics | Architecture Guide | MAFBench</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="../index.html" class="text-2xl font-bold text-indigo-600">MAFBench</a>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="../index.html" class="text-gray-600 hover:text-indigo-600">Home</a>
+                    <a href="../design.html" class="text-gray-600 hover:text-indigo-600">Why Design Matters</a>
+                    <div class="dropdown relative">
+                        <a href="index.html" class="text-gray-900 font-medium hover:text-indigo-600 flex items-center">
+                            Architecture Guide
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="index.html">Overview</a>
+                            <a href="single-agent.html" class="active">Single-Agent Characteristics</a>
+                            <a href="multi-agent.html">Multi-Agent Characteristics</a>
+                            <a href="environment.html">Environment</a>
+                        </div>
+                    </div>
+                    <a href="../results.html" class="text-gray-600 hover:text-indigo-600">Results</a>
+                    <a href="../mafbench.html" class="text-gray-600 hover:text-indigo-600">MAFBench</a>
+                    <a href="../paper.html" class="text-gray-600 hover:text-indigo-600">Paper & Code</a>
+                    <a href="../blog.html" class="text-gray-600 hover:text-indigo-600">Blog</a>
+                    <a href="../about.html" class="text-gray-600 hover:text-indigo-600">About</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden text-gray-600">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 py-4 space-y-3">
+                <a href="../index.html" class="block text-gray-600">Home</a>
+                <a href="../design.html" class="block text-gray-600">Why Design Matters</a>
+                <div class="pl-2 border-l-2 border-gray-200">
+                    <a href="index.html" class="block text-gray-900 font-medium mb-2">Architecture Guide</a>
+                    <div class="pl-4 space-y-2">
+                        <a href="index.html" class="block text-gray-600 text-sm">Overview</a>
+                        <a href="single-agent.html" class="block text-gray-900 font-medium text-sm">Single-Agent Characteristics</a>
+                        <a href="multi-agent.html" class="block text-gray-600 text-sm">Multi-Agent Characteristics</a>
+                        <a href="environment.html" class="block text-gray-600 text-sm">Environment</a>
+                    </div>
+                </div>
+                <a href="../results.html" class="block text-gray-600">Results</a>
+                <a href="../mafbench.html" class="block text-gray-600">MAFBench</a>
+                <a href="../paper.html" class="block text-gray-600">Paper & Code</a>
+                <a href="../blog.html" class="block text-gray-600">Blog</a>
+                <a href="../about.html" class="block text-gray-600">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <section class="pt-24 pb-4 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-200">
+        <div class="max-w-6xl mx-auto">
+            <nav class="text-sm text-gray-600">
+                <a href="index.html" class="hover:text-indigo-600">Architecture Guide</a>
+                <span class="mx-2">/</span>
+                <span class="text-gray-900">Single-Agent Characteristics</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Hero Section -->
+    <section class="pt-12 pb-16 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-200">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                Single-Agent Characteristics
+            </h1>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                These dimensions control how individual agents are designed and how they behave. They determine 
+                what agents know, how they think, and what actions they can take.
+            </p>
+        </div>
+    </section>
+
+    <!-- Behavioral Specification -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-200">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-semibold text-gray-900 mb-6">Behavioral Specification</h2>
+            <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                This dimension controls how you tell agents what to do. You can either hardcode their behavior 
+                in the workflow, give them role descriptions that guide their reasoning, or let behavior emerge 
+                from how they interact with the environment.
+            </p>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">How frameworks handle this</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                        <strong>Graph-based frameworks</strong> encode roles, goals, and plans directly in the 
+                        workflow structure. Behavior is determined by the graph logic, not by explicit role 
+                        descriptions. If you want an agent to plan, you code that planning step into the graph.
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                        <strong>Role-based frameworks</strong> make roles and goals explicit. You write role 
+                        descriptions that condition how the LLM reasons. Planning happens through natural language 
+                        plan generation, manager-worker coordination, or iterative refinement—not rigid sequences.
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        <strong>GABM frameworks</strong> treat roles, goals, and plans as optional. Behavior 
+                        emerges from agents repeatedly observing the environment and taking actions, rather than 
+                        following explicit instructions.
+                    </p>
+                </div>
+                <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                    <table class="w-full text-xs">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">Feature</th>
+                                <th class="px-4 py-2 text-center font-semibold text-gray-900 border-b border-gray-300">Graph</th>
+                                <th class="px-4 py-2 text-center font-semibold text-gray-900 border-b border-gray-300">Role</th>
+                                <th class="px-4 py-2 text-center font-semibold text-gray-900 border-b border-gray-300">GABM</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-4 py-2 text-gray-700">Role</td>
+                                <td class="px-4 py-2 text-center text-gray-700">Implicit</td>
+                                <td class="px-4 py-2 text-center text-gray-700">Explicit</td>
+                                <td class="px-4 py-2 text-center text-gray-700">Optional</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 text-gray-700">Goal</td>
+                                <td class="px-4 py-2 text-center text-gray-700">Graph-determined</td>
+                                <td class="px-4 py-2 text-center text-gray-700">First-class object</td>
+                                <td class="px-4 py-2 text-center text-gray-700">Environment-driven</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 text-gray-700">Planning</td>
+                                <td class="px-4 py-2 text-center text-gray-700">Embedded in graph</td>
+                                <td class="px-4 py-2 text-center text-gray-700">Pre-task or manager-worker</td>
+                                <td class="px-4 py-2 text-center text-gray-700">Optional</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <p class="text-lg text-gray-700 leading-relaxed">
+                <strong>Trade-off:</strong> Graph-based gives you deterministic control but less flexibility. 
+                Role-based enables adaptive reasoning but requires careful role design. GABM enables emergent 
+                behavior but reduces direct control.
+            </p>
+        </div>
+    </section>
+
+    <!-- Storage Architecture -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 border-b border-gray-200">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-semibold text-gray-900 mb-6">Storage Architecture</h2>
+            <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                This dimension controls how agents remember things. Frameworks provide different types of memory: 
+                long-term memory (LTM) for persistent knowledge, short-term memory (STM) for recent interactions, 
+                entity memory (EM) for structured facts, working memory (WM) for active context, and external 
+                knowledge (EK) for attached documents.
+            </p>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">How frameworks handle this</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                        <strong>Graph-based frameworks</strong> primarily use retrieval-based long-term memory 
+                        with bounded short-term execution state. Entity memory, working memory, and external 
+                        knowledge must be managed manually by developers.
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                        <strong>Role-based frameworks</strong> follow a similar retrieval-centric design but 
+                        may support structured entity memory via embedding-based retrieval. They also allow 
+                        explicit attachment of external knowledge like documents or files.
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        <strong>GABM frameworks</strong> centralize memory at the environment level. They 
+                        maintain long-term textual memory accessed by the LLM and update state via developer-defined 
+                        transition functions, rather than short-term context accumulation.
+                    </p>
+                </div>
+                <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                    <table class="w-full text-xs">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">Memory Type</th>
+                                <th class="px-4 py-2 text-center font-semibold text-gray-900 border-b border-gray-300">Graph</th>
+                                <th class="px-4 py-2 text-center font-semibold text-gray-900 border-b border-gray-300">Role</th>
+                                <th class="px-4 py-2 text-center font-semibold text-gray-900 border-b border-gray-300">GABM</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-4 py-2 text-gray-700">LTM</td>
+                                <td class="px-4 py-2 text-center text-gray-700">✓ Retrieval-based</td>
+                                <td class="px-4 py-2 text-center text-gray-700">✓ Retrieval-based</td>
+                                <td class="px-4 py-2 text-center text-gray-700">✓ LLM-queried</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 text-gray-700">STM</td>
+                                <td class="px-4 py-2 text-center text-gray-700">✓ Conversation/state</td>
+                                <td class="px-4 py-2 text-center text-gray-700">✓ RAG-based context</td>
+                                <td class="px-4 py-2 text-center text-gray-700">✗ Not native</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 text-gray-700">EM</td>
+                                <td class="px-4 py-2 text-center text-gray-700">✗ Manual</td>
+                                <td class="px-4 py-2 text-center text-gray-700">✓ Optional structured</td>
+                                <td class="px-4 py-2 text-center text-gray-700">✗ Not native</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 text-gray-700">WM</td>
+                                <td class="px-4 py-2 text-center text-gray-700">✗ Developer-managed</td>
+                                <td class="px-4 py-2 text-center text-gray-700">✗ Implicit</td>
+                                <td class="px-4 py-2 text-center text-gray-700">✓ Derived from LTM</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 text-gray-700">EK</td>
+                                <td class="px-4 py-2 text-center text-gray-700">✗ Not native</td>
+                                <td class="px-4 py-2 text-center text-gray-700">✓ Attachable</td>
+                                <td class="px-4 py-2 text-center text-gray-700">✗ Not native</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <p class="text-lg text-gray-700 leading-relaxed">
+                <strong>Trade-off:</strong> Retrieval-based memory scales better but requires indexing. Accumulation 
+                is simpler but costs grow exponentially. Centralized environment memory enables persistent state 
+                evolution but limits per-agent flexibility.
+            </p>
+        </div>
+    </section>
+
+    <!-- Tool Execution -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-semibold text-gray-900 mb-6">Tool Execution Model</h2>
+            <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                This dimension determines where tool execution authority lives and how tools are invoked. Tools 
+                can be bound to workflow nodes, attached to agent roles, or routed through an environment controller.
+            </p>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">How frameworks handle this</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                        <strong>Graph-based frameworks</strong> integrate tools in two ways: as explicit workflow 
+                        nodes where execution is fixed by control-flow logic, or as agent-callable functions 
+                        constrained by the graph structure.
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                        <strong>Role-based frameworks</strong> bind tools to agent roles and task context. Agents 
+                        can dynamically select tools during reasoning, but access is constrained by orchestration 
+                        semantics.
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        <strong>GABM frameworks</strong> remove direct tool access from agents. All external 
+                        actions route through an environment controller that interprets agent intentions and 
+                        updates global state.
+                    </p>
+                </div>
+                <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                    <table class="w-full text-xs">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">Framework</th>
+                                <th class="px-4 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">Tool Model</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-4 py-2 text-gray-700">Graph-based</td>
+                                <td class="px-4 py-2 text-gray-700">Agent-bound or graph nodes</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 text-gray-700">Role-based</td>
+                                <td class="px-4 py-2 text-gray-700">Agent-bound, role-constrained</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 text-gray-700">GABM</td>
+                                <td class="px-4 py-2 text-gray-700">Environment-executed</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <p class="text-lg text-gray-700 leading-relaxed">
+                <strong>Trade-off:</strong> Procedural invocation offers strict control and stable costs. 
+                Role-conditioned access enables flexible problem solving with weaker guarantees. Environment-mediated 
+                execution supports persistent state evolution while limiting direct agent control.
+            </p>
+        </div>
+    </section>
+
+    <!-- Navigation Links -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50 border-t border-gray-200">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="text-indigo-600 hover:text-indigo-700 font-semibold">
+                    ← Back to Architecture Guide
+                </a>
+                <a href="multi-agent.html" class="text-indigo-600 hover:text-indigo-700 font-semibold">
+                    Multi-Agent Characteristics →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">MAFBench</h3>
+                    <p class="text-sm">A unified benchmark for evaluating multi-agent LLM frameworks.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="../paper.html" class="hover:text-white">Paper</a></li>
+                        <li><a href="../mafbench.html" class="hover:text-white">Benchmark</a></li>
+                        <li><a href="https://github.com/CoDS-GCS/MAFBench" target="_blank" class="hover:text-white">GitHub</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Learn</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html" class="hover:text-white">Architecture Guide</a></li>
+                        <li><a href="../results.html" class="hover:text-white">Results</a></li>
+                        <li><a href="../blog.html" class="hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Connect</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="../about.html" class="hover:text-white">About</a></li>
+                        <li><a href="https://github.com/CoDS-GCS/MAFBench" target="_blank" class="hover:text-white">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-sm">
+                <p>&copy; 2024 MAFBench. Research by Concordia University.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../scripts/main.js"></script>
+</body>
+</html>
+

@@ -7,7 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="bg-white">
     <!-- Navigation -->
@@ -17,10 +16,21 @@
                 <div class="flex items-center">
                     <a href="index.html" class="text-2xl font-bold text-indigo-600">MAFBench</a>
                 </div>
-                <div class="hidden md:flex space-x-8">
+                <div class="hidden md:flex space-x-8 items-center">
                     <a href="index.html" class="text-gray-600 hover:text-indigo-600">Home</a>
                     <a href="design.html" class="text-gray-600 hover:text-indigo-600">Why Design Matters</a>
-                    <a href="architecture.html" class="text-gray-600 hover:text-indigo-600">Architecture Guide</a>
+                    <div class="dropdown relative">
+                        <a href="architecture/index.html" class="text-gray-600 hover:text-indigo-600 flex items-center">
+                            Architecture Guide
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="architecture/index.html">Overview</a>
+                            <a href="architecture/single-agent.html">Single-Agent Characteristics</a>
+                            <a href="architecture/multi-agent.html">Multi-Agent Characteristics</a>
+                            <a href="architecture/environment.html">Environment</a>
+                        </div>
+                    </div>
                     <a href="results.html" class="text-gray-900 font-medium hover:text-indigo-600">Results</a>
                     <a href="mafbench.html" class="text-gray-600 hover:text-indigo-600">MAFBench</a>
                     <a href="paper.html" class="text-gray-600 hover:text-indigo-600">Paper & Code</a>
@@ -36,7 +46,15 @@
             <div class="px-4 py-4 space-y-3">
                 <a href="index.html" class="block text-gray-600">Home</a>
                 <a href="design.html" class="block text-gray-600">Why Design Matters</a>
-                <a href="architecture.html" class="block text-gray-600">Architecture Guide</a>
+                <div class="pl-2 border-l-2 border-gray-200">
+                    <a href="architecture/index.html" class="block text-gray-900 font-medium mb-2">Architecture Guide</a>
+                    <div class="pl-4 space-y-2">
+                        <a href="architecture/index.html" class="block text-gray-600 text-sm">Overview</a>
+                        <a href="architecture/single-agent.html" class="block text-gray-600 text-sm">Single-Agent Characteristics</a>
+                        <a href="architecture/multi-agent.html" class="block text-gray-600 text-sm">Multi-Agent Characteristics</a>
+                        <a href="architecture/environment.html" class="block text-gray-600 text-sm">Environment</a>
+                    </div>
+                </div>
                 <a href="results.html" class="block text-gray-900 font-medium">Results</a>
                 <a href="mafbench.html" class="block text-gray-600">MAFBench</a>
                 <a href="paper.html" class="block text-gray-600">Paper & Code</a>
@@ -47,171 +65,348 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-indigo-50 to-white">
+    <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-200">
         <div class="max-w-4xl mx-auto text-center">
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-8 rounded max-w-3xl mx-auto">
+                <p class="text-sm text-gray-700">
+                    <i class="fas fa-info-circle text-blue-600 mr-2"></i>
+                    <strong>Note:</strong> All numerical values and tables on this page should be verified against the paper PDF for the most accurate and up-to-date results.
+                </p>
+            </div>
             <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
                 Results
             </h1>
-            <p class="text-xl text-gray-600">
-                Same model, same task — wildly different performance
+            <p class="text-xl text-gray-700 leading-relaxed">
+                Architecture, not models, determines performance. Same LLM, same task, wildly different outcomes.
             </p>
         </div>
     </section>
 
-    <!-- Performance Overview -->
-    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl font-bold text-center text-gray-900 mb-16">Performance Impact of Architecture Choices</h2>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-                <div class="bg-gradient-to-br from-red-50 to-orange-50 p-6 rounded-xl border-2 border-red-200">
-                    <div class="text-4xl font-bold text-red-600 mb-2">117×</div>
-                    <div class="text-sm text-gray-600 mb-2">Worst Latency</div>
-                    <div class="text-xs text-gray-500">vs 1.3× best</div>
-                </div>
-                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border-2 border-blue-200">
-                    <div class="text-4xl font-bold text-blue-600 mb-2">30%</div>
-                    <div class="text-sm text-gray-600 mb-2">Accuracy Drop</div>
-                    <div class="text-xs text-gray-500">from poor planning</div>
-                </div>
-                <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl border-2 border-purple-200">
-                    <div class="text-4xl font-bold text-purple-600 mb-2">90% → 30%</div>
-                    <div class="text-sm text-gray-600 mb-2">Coordination Success</div>
-                    <div class="text-xs text-gray-500">with bad topology</div>
-                </div>
-                <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-xl border-2 border-green-200">
-                    <div class="text-4xl font-bold text-green-600 mb-2">+58</div>
-                    <div class="text-sm text-gray-600 mb-2">F1 Score Gain</div>
-                    <div class="text-xs text-gray-500">from specialization</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Orchestration Latency -->
-    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">Orchestration Overhead</h2>
-            <p class="text-center text-gray-600 mb-8">Latency multiplier compared to direct LLM calls</p>
-            
-            <div class="bg-white rounded-xl p-8 shadow-lg">
-                <canvas id="latencyChart" height="80"></canvas>
-            </div>
-            
-            <div class="mt-8 text-center text-gray-600">
-                <p class="text-sm">Best: 1.3× | Worst: 117× | Same model, same task</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Memory Performance -->
-    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">Memory Performance</h2>
-            <p class="text-center text-gray-600 mb-8">Overall memory score across frameworks</p>
-            
-            <div class="bg-gray-50 rounded-xl p-8">
-                <canvas id="memoryChart" height="80"></canvas>
-            </div>
-            
-            <div class="mt-8 text-center text-gray-600">
-                <p class="text-sm">Best: 23.8% | Worst: 6.1% | Memory structure matters more than context size</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Planning Accuracy -->
-    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">Planning Accuracy</h2>
-            <p class="text-center text-gray-600 mb-8">Accuracy change from baseline with different planning interfaces</p>
-            
-            <div class="bg-white rounded-xl p-8 shadow-lg">
-                <canvas id="planningChart" height="80"></canvas>
-            </div>
-            
-            <div class="mt-8 text-center text-gray-600">
-                <p class="text-sm">Best: +15% | Worst: -30% | Bad interfaces break reasoning</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Coordination Success -->
-    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">Coordination Success</h2>
-            <p class="text-center text-gray-600 mb-8">Task success rate with different communication topologies</p>
-            
-            <div class="bg-gray-50 rounded-xl p-8">
-                <canvas id="coordinationChart" height="80"></canvas>
-            </div>
-            
-            <div class="mt-8 text-center text-gray-600">
-                <p class="text-sm">Best: >90% | Worst: <30% | Topology decides coordination</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Interactive Comparison -->
-    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-indigo-600">
+    <!-- Orchestration Overhead -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-200">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-center text-white mb-12">Explore the Data</h2>
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">Orchestration Overhead</h2>
+            <p class="text-lg text-gray-700 mb-8 leading-relaxed">
+                Framework orchestration alone can create 100× latency differences, even for trivial tasks. We fix the LLM, query, and prompts, varying only the orchestration layer.
+            </p>
             
-            <div class="bg-white rounded-xl p-8">
-                <div class="mb-6">
-                    <label class="block text-gray-700 font-semibold mb-2">Select Dimension:</label>
-                    <select id="dimensionSelect" class="w-full md:w-64 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                        <option value="orchestration">Orchestration</option>
-                        <option value="memory">Memory</option>
-                        <option value="planning">Planning</option>
-                        <option value="specialization">Specialization</option>
-                        <option value="coordination">Coordination</option>
-                    </select>
-                </div>
-                
-                <div id="comparisonChart" class="h-96">
-                    <canvas id="dynamicChart"></canvas>
-                </div>
+            <div class="bg-gray-50 border border-gray-300 rounded-lg overflow-hidden mb-8">
+                <table class="w-full text-sm">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Architecture Type</th>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Latency (p50)</th>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Throughput (req/s)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">Direct LLM</td>
+                            <td class="px-6 py-4 text-gray-700">0.38s</td>
+                            <td class="px-6 py-4 text-gray-700">8.88</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">Graph-based (LangGraph)</td>
+                            <td class="px-6 py-4 text-gray-700">0.52s (1.4×)</td>
+                            <td class="px-6 py-4 text-gray-700">6.38</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">Role-based (AutoGen, OpenAgents)</td>
+                            <td class="px-6 py-4 text-gray-700">0.50s (1.3×)</td>
+                            <td class="px-6 py-4 text-gray-700">6.83-7.06</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">Role-based (CrewAI, Agno, OpenAI SDK)</td>
+                            <td class="px-6 py-4 text-gray-700">0.61-1.17s (1.6-3.1×)</td>
+                            <td class="px-6 py-4 text-gray-700">2.86-4.16</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">GABM (Concordia)</td>
+                            <td class="px-6 py-4 text-gray-700">44.47s (117×)</td>
+                            <td class="px-6 py-4 text-gray-700">0.089</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-white border border-gray-300 rounded-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">Key Takeaway</h3>
+                <p class="text-gray-700 leading-relaxed">
+                    Orchestration architecture alone governs baseline scalability. Graph- and role-based designs introduce modest overhead (1.3-3×), while GABM execution incurs orders-of-magnitude higher runtime and output even for trivial tasks, driven by execution semantics rather than task complexity.
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- Key Insights -->
-    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+    <!-- Memory Architecture -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 border-b border-gray-200">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-center text-gray-900 mb-16">Key Insights</h2>
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">Memory Architecture Effects</h2>
+            <p class="text-lg text-gray-700 mb-8 leading-relaxed">
+                Memory structure matters more than context size. Retrieval enables stable recall, accumulation enables learning but scales poorly, and hybrid designs work best under bounded context.
+            </p>
             
-            <div class="space-y-6">
-                <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Architecture > Model Quality</h3>
-                    <p class="text-gray-700">
-                        Framework-level design choices can create order-of-magnitude differences in performance, 
-                        even when using identical LLM models. The architecture is the bottleneck, not the model.
-                    </p>
-                </div>
+            <div class="bg-white border border-gray-300 rounded-lg overflow-hidden mb-8">
+                <table class="w-full text-sm">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Memory Type</th>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">AR Score</th>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">TTL Score</th>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">LRU Score</th>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Overall</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">Retrieval-only (LangGraph)</td>
+                            <td class="px-6 py-4 text-gray-700">33.2</td>
+                            <td class="px-6 py-4 text-gray-700">11.4</td>
+                            <td class="px-6 py-4 text-gray-700">30.4</td>
+                            <td class="px-6 py-4 text-gray-700">23.8</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">Hybrid (LangGraph W=512)</td>
+                            <td class="px-6 py-4 text-gray-700">44.9</td>
+                            <td class="px-6 py-4 text-gray-700">24.2</td>
+                            <td class="px-6 py-4 text-gray-700">17.6</td>
+                            <td class="px-6 py-4 text-gray-700">21.7</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">Accumulation (OpenAI SDK W=8192)</td>
+                            <td class="px-6 py-4 text-gray-700">33.9</td>
+                            <td class="px-6 py-4 text-gray-700">20.7</td>
+                            <td class="px-6 py-4 text-gray-700">27.5</td>
+                            <td class="px-6 py-4 text-gray-700">20.6</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">Accumulation (OpenAI SDK W=50)</td>
+                            <td class="px-6 py-4 text-gray-700">8.4</td>
+                            <td class="px-6 py-4 text-gray-700">1.2</td>
+                            <td class="px-6 py-4 text-gray-700">0.0</td>
+                            <td class="px-6 py-4 text-gray-700">6.1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-white border border-gray-300 rounded-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">Key Takeaways</h3>
+                <ul class="space-y-2 text-gray-700">
+                    <li class="flex items-start">
+                        <span class="text-indigo-600 mr-2">•</span>
+                        <span><strong>Retrieval enables stable recall:</strong> Retrieval-only designs dominate on factual recall (AR) and long-range understanding (LRU), achieving 30.4 on LRU vs 27.5 for large accumulation.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-indigo-600 mr-2">•</span>
+                        <span><strong>Hybrid works best for learning:</strong> Hybrid retrieval-accumulation achieves highest TTL (28.9) by anchoring learning to retrieved signals rather than raw prompt growth.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-indigo-600 mr-2">•</span>
+                        <span><strong>Accumulation scales poorly:</strong> Runtime grows rapidly with context window as full histories are replayed for each query. Retrieval avoids repeated processing.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Planning Effects -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-200">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">Planning Interface Effects</h2>
+            <p class="text-lg text-gray-700 mb-8 leading-relaxed">
+                Schema-constrained planning reduces accuracy and introduces high failure rates. Free-form planning preserves or improves accuracy with minimal overhead.
+            </p>
+            
+            <div class="bg-gray-50 border border-gray-300 rounded-lg overflow-hidden mb-8">
+                <table class="w-full text-sm">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Planning Interface</th>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Accuracy Impact</th>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Formatting Failures</th>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Runtime Overhead</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">No Plan (Direct)</td>
+                            <td class="px-6 py-4 text-gray-700">Baseline</td>
+                            <td class="px-6 py-4 text-gray-700">0%</td>
+                            <td class="px-6 py-4 text-gray-700">1×</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">Schema-constrained (Crew-Plan)</td>
+                            <td class="px-6 py-4 text-gray-700">-30% to -50%</td>
+                            <td class="px-6 py-4 text-gray-700">Up to 84.7%</td>
+                            <td class="px-6 py-4 text-gray-700">7.4× to 31.3×</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">Free-form (Direct-LLM-Plan)</td>
+                            <td class="px-6 py-4 text-gray-700">+15% to -5%</td>
+                            <td class="px-6 py-4 text-gray-700">0%</td>
+                            <td class="px-6 py-4 text-gray-700">1.2× to 6.6×</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-white border border-gray-300 rounded-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">Key Takeaway</h3>
+                <p class="text-gray-700 leading-relaxed">
+                    Planning outcomes are driven primarily by interface design, not LLM planning ability. Schema-constrained planning introduces large formatting failure rates (up to 84.7%) and high orchestration overhead (up to 31×). Free-form planning preserves accuracy with minimal overhead. Planning should be implemented as a permissive stage that tolerates variability in plan text.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specialization -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 border-b border-gray-200">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">Agent Specialization</h2>
+            <p class="text-lg text-gray-700 mb-8 leading-relaxed">
+                Specialization is governed by how frameworks inject task-specific reasoning structure, not role identity alone. Expert-guided conditioning improves F1 scores by 58 points.
+            </p>
+            
+            <div class="bg-white border border-gray-300 rounded-lg overflow-hidden mb-8">
+                <table class="w-full text-sm">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Conditioning Strategy</th>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Multiclass F1</th>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">No Role</td>
+                            <td class="px-6 py-4 text-gray-700">41.9</td>
+                            <td class="px-6 py-4 text-gray-700">Baseline</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">Role-based prompting</td>
+                            <td class="px-6 py-4 text-gray-700">41.9-42.1</td>
+                            <td class="px-6 py-4 text-gray-700">No improvement</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">Planning-based conditioning</td>
+                            <td class="px-6 py-4 text-gray-700">42.0</td>
+                            <td class="px-6 py-4 text-gray-700">No improvement</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">Expert-guided conditioning</td>
+                            <td class="px-6 py-4 text-gray-700">96.0-100.0</td>
+                            <td class="px-6 py-4 text-gray-700">+54 to +58 points</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-white border border-gray-300 rounded-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">Key Takeaway</h3>
+                <p class="text-gray-700 leading-relaxed">
+                    Role labels and generic planning interfaces fail to activate domain knowledge. Explicit procedural instructions impose structured solution workflows that reliably improve performance. Specialization should be implemented through reasoning procedures embedded in the framework, not through role naming or lightweight prompt modifications.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coordination -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-200">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">Coordination and Scaling</h2>
+            <p class="text-lg text-gray-700 mb-8 leading-relaxed">
+                Coordination performance is governed by the match between task structure and communication geometry. Topology choice becomes critical at scale.
+            </p>
+            
+            <div class="bg-gray-50 border border-gray-300 rounded-lg overflow-hidden mb-8">
+                <table class="w-full text-sm">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Topology</th>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Coloring (n=100)</th>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Consensus (n=100)</th>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Rounds</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">Scale-Free</td>
+                            <td class="px-6 py-4 text-gray-700">97%</td>
+                            <td class="px-6 py-4 text-gray-700">Failed</td>
+                            <td class="px-6 py-4 text-gray-700">11</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">Small-World</td>
+                            <td class="px-6 py-4 text-gray-700">98%</td>
+                            <td class="px-6 py-4 text-gray-700">Failed</td>
+                            <td class="px-6 py-4 text-gray-700">15</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">Fully Connected</td>
+                            <td class="px-6 py-4 text-gray-700">98%</td>
+                            <td class="px-6 py-4 text-gray-700">100%</td>
+                            <td class="px-6 py-4 text-gray-700">3</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">Delaunay</td>
+                            <td class="px-6 py-4 text-gray-700">81%</td>
+                            <td class="px-6 py-4 text-gray-700">Failed</td>
+                            <td class="px-6 py-4 text-gray-700">19</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900 font-medium">Sequential</td>
+                            <td class="px-6 py-4 text-gray-700">Failed (>40 rounds)</td>
+                            <td class="px-6 py-4 text-gray-700">Failed</td>
+                            <td class="px-6 py-4 text-gray-700">>40</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-white border border-gray-300 rounded-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">Key Takeaways</h3>
+                <ul class="space-y-2 text-gray-700">
+                    <li class="flex items-start">
+                        <span class="text-indigo-600 mr-2">•</span>
+                        <span><strong>Local coordination:</strong> Sparse topologies (scale-free, small-world) achieve high success (97-98%) on local tasks like Coloring, converging in 11-15 rounds.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-indigo-600 mr-2">•</span>
+                        <span><strong>Global agreement:</strong> Only fully connected topologies succeed on Consensus (100%), converging in 3 rounds independent of network size. All sparse topologies fail despite higher runtime and token expenditure.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-indigo-600 mr-2">•</span>
+                        <span><strong>Sequential pipelines fail at scale:</strong> Sequential topologies exceed 40 rounds and fail entirely on large networks, showing that increasing interaction budgets alone does not improve outcomes.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Summary -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">Summary</h2>
+            
+            <div class="bg-white border border-gray-300 rounded-lg p-8">
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    These results demonstrate that performance in multi-agent LLM systems is governed by framework architecture, not model quality alone. Architectural choices create order-of-magnitude differences in latency, accuracy, and coordination success.
+                </p>
                 
-                <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Orchestration is Critical</h3>
-                    <p class="text-gray-700">
-                        How agents are scheduled and connected can create 100× latency differences. 
-                        Parallel execution and efficient scheduling are essential for performance.
-                    </p>
-                </div>
-                
-                <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-lg">
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Memory Structure Matters</h3>
-                    <p class="text-gray-700">
-                        Memory architecture determines what agents remember. Poor memory design leads to 
-                        context loss and repeated mistakes, regardless of context window size.
-                    </p>
-                </div>
-                
-                <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-lg">
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Communication Topology is Decisive</h3>
-                    <p class="text-gray-700">
-                        Coordination success can drop from 90% to below 30% based solely on how agents 
-                        communicate. Topology choice becomes critical at scale.
-                    </p>
+                <div class="grid md:grid-cols-2 gap-6 mt-8">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Architecture > Model</h3>
+                        <p class="text-gray-700 leading-relaxed">
+                            Framework-level design choices can create 100× latency differences and 30% accuracy drops, even when using identical LLM models.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Design Dimensions Matter</h3>
+                        <p class="text-gray-700 leading-relaxed">
+                            Orchestration, memory, planning, specialization, and coordination each independently drive performance. No single dimension can compensate for poor choices in others.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -236,7 +431,7 @@
                 <div>
                     <h4 class="text-white font-semibold mb-4">Learn</h4>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="architecture.html" class="hover:text-white">Architecture Guide</a></li>
+                        <li><a href="architecture/index.html" class="hover:text-white">Architecture Guide</a></li>
                         <li><a href="results.html" class="hover:text-white">Results</a></li>
                         <li><a href="blog.html" class="hover:text-white">Blog</a></li>
                     </ul>
@@ -255,8 +450,6 @@
         </div>
     </footer>
 
-    <script src="scripts/results.js"></script>
     <script src="scripts/main.js"></script>
 </body>
 </html>
-

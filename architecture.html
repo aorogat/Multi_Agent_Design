@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Architecture Guide | MAFBench</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta http-equiv="refresh" content="0; url=architecture/index.html">
+    <script>
+        window.location.href = 'architecture/index.html';
+    </script>
 </head>
 <body class="bg-white">
+    <p>Redirecting to <a href="architecture/index.html">Architecture Guide</a>...</p>
     <!-- Navigation -->
     <nav id="navbar" class="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -46,396 +48,961 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-indigo-50 to-white">
-        <div class="max-w-4xl mx-auto text-center">
+    <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-200">
+        <div class="max-w-4xl mx-auto">
             <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
                 Architecture Guide
             </h1>
-            <p class="text-xl text-gray-600">
-                Your design playbook for building better multi-agent systems
+            <p class="text-lg text-gray-700 leading-relaxed">
+                This guide systematically explains the architectural dimensions that define multi-agent LLM systems. 
+                Each dimension represents a fundamental design choice that impacts performance, scalability, and 
+                coordination capability. Understanding these dimensions enables informed framework selection and 
+                system design.
             </p>
         </div>
     </section>
 
-    <!-- Table of Contents -->
-    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50 border-b">
+    <!-- What Are Agents and Frameworks -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-200">
         <div class="max-w-6xl mx-auto">
-            <div class="flex flex-wrap gap-4 justify-center">
-                <a href="#orchestration" class="px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-indigo-500 hover:text-indigo-600 transition">Orchestration</a>
-                <a href="#memory" class="px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-indigo-500 hover:text-indigo-600 transition">Memory</a>
-                <a href="#planning" class="px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-indigo-500 hover:text-indigo-600 transition">Planning</a>
-                <a href="#specialization" class="px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-indigo-500 hover:text-indigo-600 transition">Specialization</a>
-                <a href="#communication" class="px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-indigo-500 hover:text-indigo-600 transition">Communication</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Orchestration -->
-    <section id="orchestration" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div class="max-w-6xl mx-auto">
-            <div class="mb-12">
-                <div class="flex items-center mb-4">
-                    <div class="w-16 h-16 bg-indigo-100 rounded-lg flex items-center justify-center mr-4">
-                        <i class="fas fa-sitemap text-indigo-600 text-3xl"></i>
-                    </div>
-                    <h2 class="text-4xl font-bold text-gray-900">Orchestration</h2>
-                </div>
-                <p class="text-xl text-gray-600">How agents are scheduled and connected</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-12 mb-12">
-                <div class="bg-green-50 border-2 border-green-200 rounded-xl p-8">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-                        <i class="fas fa-check-circle text-green-600 mr-3"></i>
-                        What Works
-                    </h3>
-                    <ul class="space-y-3 text-gray-700">
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
-                            <span><strong>Parallel execution:</strong> Run independent agents simultaneously</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
-                            <span><strong>Efficient scheduling:</strong> Minimize idle time between agent calls</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
-                            <span><strong>Lazy evaluation:</strong> Only execute what's needed</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="bg-red-50 border-2 border-red-200 rounded-xl p-8">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-                        <i class="fas fa-times-circle text-red-600 mr-3"></i>
-                        What Breaks
-                    </h3>
-                    <ul class="space-y-3 text-gray-700">
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
-                            <span><strong>Sequential bottlenecks:</strong> Forcing agents to wait unnecessarily</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
-                            <span><strong>Over-synchronization:</strong> Blocking on every interaction</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
-                            <span><strong>Redundant execution:</strong> Running agents when results aren't needed</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
-                <h4 class="text-lg font-bold text-gray-900 mb-2">Practical Takeaway</h4>
-                <p class="text-gray-700">
-                    Orchestration overhead can create 100× latency differences. Design your control flow to maximize 
-                    parallelism and minimize blocking. Use async patterns and only synchronize when truly necessary.
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">What Are Agents and Frameworks?</h2>
+            <div class="space-y-6 text-lg text-gray-700 leading-relaxed">
+                <p>
+                    <strong>An agent</strong> is an autonomous system that can observe its environment, make decisions, 
+                    and take actions. In multi-agent LLM systems, each agent uses a large language model to reason 
+                    about what to do. Agents have roles (what they specialize in), objectives (what they're trying 
+                    to achieve), tools they can use, and memory to store information.
+                </p>
+                <p>
+                    <strong>A multi-agent framework</strong> is the system that orchestrates multiple agents, manages 
+                    how they communicate, and controls how they execute tasks. The framework defines the rules: 
+                    how agents are scheduled, how they share information, and how they coordinate. Different 
+                    frameworks make different architectural choices, which dramatically affect performance.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Memory -->
-    <section id="memory" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+    <!-- Architectural Paradigms Overview -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div class="max-w-6xl mx-auto">
-            <div class="mb-12">
-                <div class="flex items-center mb-4">
-                    <div class="w-16 h-16 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
-                        <i class="fas fa-brain text-purple-600 text-3xl"></i>
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">Architectural Paradigms</h2>
+            <p class="text-lg text-gray-700 mb-8 leading-relaxed">
+                Multi-agent LLM frameworks fall into three main paradigms based on how they structure execution 
+                and agent interactions. Each paradigm makes different trade-offs between control, flexibility, 
+                and performance. Understanding these paradigms helps you choose the right framework for your needs.
+            </p>
+            
+            <!-- Graph-Based Frameworks -->
+            <div class="mb-16 pb-16 border-b border-gray-200">
+                <h3 class="text-3xl font-semibold text-gray-900 mb-4">Graph-Based Frameworks</h3>
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    Graph-based frameworks model your multi-agent system as a workflow graph. Think of it like a 
+                    flowchart: nodes represent agents or processing steps, and edges define how information and 
+                    control flow between them. Execution follows this predefined structure step by step.
+                </p>
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    <strong>How it works:</strong> You design the graph upfront, defining which agents run when 
+                    and in what order. The framework enforces this structure at runtime, making execution predictable 
+                    and transparent. Agents communicate only along the edges you've defined in the graph.
+                </p>
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    <strong>Best for:</strong> Tasks with clear, deterministic workflows where you need predictable 
+                    execution order and transparent debugging. Examples include <a href="https://www.langchain.com/langgraph" target="_blank" class="text-indigo-600 hover:text-indigo-700 hover:underline">LangGraph</a>, 
+                    <a href="https://n8n.io/" target="_blank" class="text-indigo-600 hover:text-indigo-700 hover:underline">n8n</a>, and 
+                    <a href="https://www.langflow.org/" target="_blank" class="text-indigo-600 hover:text-indigo-700 hover:underline">Langflow</a>.
+                </p>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            Graph-based frameworks enforce a workflow structure where execution follows predefined 
+                            graph edges. This makes the control flow deterministic and transparent, but requires 
+                            upfront design of the entire workflow.
+                        </p>
                     </div>
-                    <h2 class="text-4xl font-bold text-gray-900">Memory</h2>
-                </div>
-                <p class="text-xl text-gray-600">How information is stored and retrieved</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-12 mb-12">
-                <div class="bg-green-50 border-2 border-green-200 rounded-xl p-8">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-                        <i class="fas fa-check-circle text-green-600 mr-3"></i>
-                        What Works
-                    </h3>
-                    <ul class="space-y-3 text-gray-700">
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
-                            <span><strong>Shared context:</strong> Agents can access relevant history</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
-                            <span><strong>Efficient retrieval:</strong> Fast lookup of past interactions</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
-                            <span><strong>Selective memory:</strong> Store what matters, discard noise</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="bg-red-50 border-2 border-red-200 rounded-xl p-8">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-                        <i class="fas fa-times-circle text-red-600 mr-3"></i>
-                        What Breaks
-                    </h3>
-                    <ul class="space-y-3 text-gray-700">
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
-                            <span><strong>Isolated memory:</strong> Each agent forgets previous context</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
-                            <span><strong>Memory bloat:</strong> Storing everything without filtering</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
-                            <span><strong>Poor indexing:</strong> Slow or missing retrieval mechanisms</span>
-                        </li>
-                    </ul>
+                    <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                        <table class="w-full text-xs">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-4 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">What it enforces</th>
+                                    <th class="px-4 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">What you can control</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">Workflow structure</td>
+                                    <td class="px-4 py-2 text-gray-700">Node definitions, edge conditions</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">Execution follows edges</td>
+                                    <td class="px-4 py-2 text-gray-700">Memory structure, data flow</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">Communication along edges</td>
+                                    <td class="px-4 py-2 text-gray-700">Agent logic, tools, planning</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
-            <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
-                <h4 class="text-lg font-bold text-gray-900 mb-2">Practical Takeaway</h4>
-                <p class="text-gray-700">
-                    Memory structure matters more than context size. Design memory to flow between agents efficiently. 
-                    Use shared memory pools, implement smart retrieval, and prune irrelevant information.
+            <!-- Role-Based Frameworks -->
+            <div class="mb-16 pb-16 border-b border-gray-200">
+                <h3 class="text-3xl font-semibold text-gray-900 mb-4">Role-Based Frameworks</h3>
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    Role-based frameworks organize agents around job descriptions. Each agent has a role (like 
+                    "researcher" or "writer") that defines what they do, what tools they can use, and how they 
+                    interact with others. Instead of a fixed workflow, coordination emerges from agents following 
+                    their roles and delegating tasks.
+                </p>
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    <strong>How it works:</strong> You define roles and assign agents to them. Agents use their 
+                    role descriptions to decide what to do and when to hand off work to other agents. The framework 
+                    handles the coordination, but the exact flow isn't predetermined—it depends on how agents 
+                    reason about the task.
+                </p>
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    <strong>Best for:</strong> Flexible tasks where you want agents to adapt their coordination 
+                    based on the problem. Examples include <a href="https://www.crewai.com/" target="_blank" class="text-indigo-600 hover:text-indigo-700 hover:underline">CrewAI</a>, 
+                    <a href="https://microsoft.github.io/autogen/" target="_blank" class="text-indigo-600 hover:text-indigo-700 hover:underline">AutoGen</a>, 
+                    <a href="https://openai.github.io/openai-agents-python/" target="_blank" class="text-indigo-600 hover:text-indigo-700 hover:underline">OpenAI Agents</a>, 
+                    <a href="https://github.com/agno-ai/agno" target="_blank" class="text-indigo-600 hover:text-indigo-700 hover:underline">Agno</a>, and 
+                    <a href="https://github.com/xlang-ai/OpenAgents" target="_blank" class="text-indigo-600 hover:text-indigo-700 hover:underline">OpenAgents</a>.
+                </p>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            Role-based frameworks enforce agent role abstraction and role-conditioned interactions. 
+                            This provides flexibility in coordination while maintaining structured communication 
+                            patterns. Designers control role definitions, execution order, and tool access.
+                        </p>
+                    </div>
+                    <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                        <table class="w-full text-xs">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-4 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">What it enforces</th>
+                                    <th class="px-4 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">What you can control</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">Role abstraction</td>
+                                    <td class="px-4 py-2 text-gray-700">Role definitions</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">Role-conditioned interactions</td>
+                                    <td class="px-4 py-2 text-gray-700">Execution order, parallelism</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">Structured messages</td>
+                                    <td class="px-4 py-2 text-gray-700">Tool access, planning, memory</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GABM Frameworks -->
+            <div class="mb-16">
+                <h3 class="text-3xl font-semibold text-gray-900 mb-4">GABM Frameworks (Generative Agent-Based Modeling)</h3>
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    GABM frameworks treat multi-agent systems like simulations. Agents exist in a shared environment 
+                    and interact with it over time. Instead of direct agent-to-agent communication, coordination 
+                    happens indirectly through the environment state. Think of it like a virtual world where agents 
+                    observe, act, and influence what happens next.
+                </p>
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    <strong>How it works:</strong> The framework maintains an environment state that all agents can 
+                    observe and modify. Each time step, agents see the current state, decide what to do, and their 
+                    actions update the environment. Coordination emerges from how agents respond to the shared 
+                    world state, not from explicit communication.
+                </p>
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    <strong>Best for:</strong> Simulating complex systems where you want emergent behavior from 
+                    agent-environment interactions. Examples include <a href="https://github.com/google-deepmind/concordia" target="_blank" class="text-indigo-600 hover:text-indigo-700 hover:underline">DeepMind Concordia</a>.
+                </p>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            GABM frameworks enforce a time-step simulation model with environment-mediated interactions. 
+                            This creates emergent coordination but requires careful design of environment rules and 
+                            observation models. Designers control agent behaviors and how the environment evolves.
+                        </p>
+                    </div>
+                    <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                        <table class="w-full text-xs">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-4 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">What it enforces</th>
+                                    <th class="px-4 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">What you can control</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">Time-step model</td>
+                                    <td class="px-4 py-2 text-gray-700">Agent behaviors</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">Environment-mediated</td>
+                                    <td class="px-4 py-2 text-gray-700">Environment rules, updates</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">No direct communication</td>
+                                    <td class="px-4 py-2 text-gray-700">Observations, action effects</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Table -->
+            <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                <table class="w-full text-sm">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Paradigm</th>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Execution model</th>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Coordination style</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900">Graph-based</td>
+                            <td class="px-6 py-4 text-gray-700">Follows predefined workflow graph</td>
+                            <td class="px-6 py-4 text-gray-700">Determined at design time</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900">Role-based</td>
+                            <td class="px-6 py-4 text-gray-700">Role-conditioned reasoning and delegation</td>
+                            <td class="px-6 py-4 text-gray-700">Emerges from role interactions</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900">GABM</td>
+                            <td class="px-6 py-4 text-gray-700">Time-step simulation with environment</td>
+                            <td class="px-6 py-4 text-gray-700">Mediated through shared environment state</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Design Dimensions Overview -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">Design Dimensions</h2>
+            <p class="text-lg text-gray-700 mb-8 leading-relaxed">
+                These dimensions define multi-agent system architecture. Each dimension represents a fundamental 
+                design choice that can be fixed by the framework paradigm or configured by the system designer. 
+                We organize them into three categories: how individual agents work, how agents interact, and 
+                how the system environment is structured.
+            </p>
+            
+            <div class="grid md:grid-cols-3 gap-6 mt-8">
+                <div class="bg-white border border-gray-300 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Single-Agent Characteristics</h3>
+                    <ul class="space-y-2 text-sm text-gray-700">
+                        <li>• Behavioral Specification</li>
+                        <li>• Storage Architecture</li>
+                        <li>• Tool Execution</li>
+                    </ul>
+                </div>
+                <div class="bg-white border border-gray-300 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Multi-Agent Characteristics</h3>
+                    <ul class="space-y-2 text-sm text-gray-700">
+                        <li>• Network Topology</li>
+                        <li>• Communication Pattern</li>
+                        <li>• Collaboration</li>
+                    </ul>
+                </div>
+                <div class="bg-white border border-gray-300 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Environment</h3>
+                    <ul class="space-y-2 text-sm text-gray-700">
+                        <li>• World State</li>
+                        <li>• Grounded Variables</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Single-Agent Characteristics -->
+    <section id="single-agent" class="py-20 px-4 sm:px-6 lg:px-8 bg-white border-t border-gray-200">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-gray-900 mb-8">Single-Agent Characteristics</h2>
+            <p class="text-lg text-gray-700 mb-12 leading-relaxed">
+                These dimensions control how individual agents are designed and how they behave. They determine 
+                what agents know, how they think, and what actions they can take.
+            </p>
+
+            <!-- Behavioral Specification -->
+            <div class="mb-16 pb-16 border-b border-gray-200">
+                <h3 class="text-3xl font-semibold text-gray-900 mb-6">Behavioral Specification</h3>
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    This dimension controls how you tell agents what to do. You can either hardcode their behavior 
+                    in the workflow, give them role descriptions that guide their reasoning, or let behavior emerge 
+                    from how they interact with the environment.
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <h4 class="text-xl font-semibold text-gray-900 mb-4">How frameworks handle this</h4>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                            <strong>Graph-based frameworks</strong> encode roles, goals, and plans directly in the 
+                            workflow structure. Behavior is determined by the graph logic, not by explicit role 
+                            descriptions. If you want an agent to plan, you code that planning step into the graph.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                            <strong>Role-based frameworks</strong> make roles and goals explicit. You write role 
+                            descriptions that condition how the LLM reasons. Planning happens through natural language 
+                            plan generation, manager-worker coordination, or iterative refinement—not rigid sequences.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            <strong>GABM frameworks</strong> treat roles, goals, and plans as optional. Behavior 
+                            emerges from agents repeatedly observing the environment and taking actions, rather than 
+                            following explicit instructions.
+                        </p>
+                    </div>
+                    <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                        <table class="w-full text-xs">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-4 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">Feature</th>
+                                    <th class="px-4 py-2 text-center font-semibold text-gray-900 border-b border-gray-300">Graph</th>
+                                    <th class="px-4 py-2 text-center font-semibold text-gray-900 border-b border-gray-300">Role</th>
+                                    <th class="px-4 py-2 text-center font-semibold text-gray-900 border-b border-gray-300">GABM</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">Role</td>
+                                    <td class="px-4 py-2 text-center text-gray-700">Implicit</td>
+                                    <td class="px-4 py-2 text-center text-gray-700">Explicit</td>
+                                    <td class="px-4 py-2 text-center text-gray-700">Optional</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">Goal</td>
+                                    <td class="px-4 py-2 text-center text-gray-700">Graph-determined</td>
+                                    <td class="px-4 py-2 text-center text-gray-700">First-class object</td>
+                                    <td class="px-4 py-2 text-center text-gray-700">Environment-driven</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">Planning</td>
+                                    <td class="px-4 py-2 text-center text-gray-700">Embedded in graph</td>
+                                    <td class="px-4 py-2 text-center text-gray-700">Pre-task or manager-worker</td>
+                                    <td class="px-4 py-2 text-center text-gray-700">Optional</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    <strong>Trade-off:</strong> Graph-based gives you deterministic control but less flexibility. 
+                    Role-based enables adaptive reasoning but requires careful role design. GABM enables emergent 
+                    behavior but reduces direct control.
+                </p>
+            </div>
+
+            <!-- Storage Architecture -->
+            <div class="mb-16 pb-16 border-b border-gray-200">
+                <h3 class="text-3xl font-semibold text-gray-900 mb-6">Storage Architecture</h3>
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    This dimension controls how agents remember things. Frameworks provide different types of memory: 
+                    long-term memory (LTM) for persistent knowledge, short-term memory (STM) for recent interactions, 
+                    entity memory (EM) for structured facts, working memory (WM) for active context, and external 
+                    knowledge (EK) for attached documents.
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <h4 class="text-xl font-semibold text-gray-900 mb-4">How frameworks handle this</h4>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                            <strong>Graph-based frameworks</strong> primarily use retrieval-based long-term memory 
+                            with bounded short-term execution state. Entity memory, working memory, and external 
+                            knowledge must be managed manually by developers.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                            <strong>Role-based frameworks</strong> follow a similar retrieval-centric design but 
+                            may support structured entity memory via embedding-based retrieval. They also allow 
+                            explicit attachment of external knowledge like documents or files.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            <strong>GABM frameworks</strong> centralize memory at the environment level. They 
+                            maintain long-term textual memory accessed by the LLM and update state via developer-defined 
+                            transition functions, rather than short-term context accumulation.
+                        </p>
+                    </div>
+                    <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                        <table class="w-full text-xs">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-4 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">Memory Type</th>
+                                    <th class="px-4 py-2 text-center font-semibold text-gray-900 border-b border-gray-300">Graph</th>
+                                    <th class="px-4 py-2 text-center font-semibold text-gray-900 border-b border-gray-300">Role</th>
+                                    <th class="px-4 py-2 text-center font-semibold text-gray-900 border-b border-gray-300">GABM</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">LTM</td>
+                                    <td class="px-4 py-2 text-center text-gray-700">✓ Retrieval-based</td>
+                                    <td class="px-4 py-2 text-center text-gray-700">✓ Retrieval-based</td>
+                                    <td class="px-4 py-2 text-center text-gray-700">✓ LLM-queried</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">STM</td>
+                                    <td class="px-4 py-2 text-center text-gray-700">✓ Conversation/state</td>
+                                    <td class="px-4 py-2 text-center text-gray-700">✓ RAG-based context</td>
+                                    <td class="px-4 py-2 text-center text-gray-700">✗ Not native</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">EM</td>
+                                    <td class="px-4 py-2 text-center text-gray-700">✗ Manual</td>
+                                    <td class="px-4 py-2 text-center text-gray-700">✓ Optional structured</td>
+                                    <td class="px-4 py-2 text-center text-gray-700">✗ Not native</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">WM</td>
+                                    <td class="px-4 py-2 text-center text-gray-700">✗ Developer-managed</td>
+                                    <td class="px-4 py-2 text-center text-gray-700">✗ Implicit</td>
+                                    <td class="px-4 py-2 text-center text-gray-700">✓ Derived from LTM</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">EK</td>
+                                    <td class="px-4 py-2 text-center text-gray-700">✗ Not native</td>
+                                    <td class="px-4 py-2 text-center text-gray-700">✓ Attachable</td>
+                                    <td class="px-4 py-2 text-center text-gray-700">✗ Not native</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    <strong>Trade-off:</strong> Retrieval-based memory scales better but requires indexing. Accumulation 
+                    is simpler but costs grow exponentially. Centralized environment memory enables persistent state 
+                    evolution but limits per-agent flexibility.
+                </p>
+            </div>
+
+            <!-- Tool Execution -->
+            <div class="mb-16">
+                <h3 class="text-3xl font-semibold text-gray-900 mb-6">Tool Execution Model</h3>
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    This dimension determines where tool execution authority lives and how tools are invoked. Tools 
+                    can be bound to workflow nodes, attached to agent roles, or routed through an environment controller.
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <h4 class="text-xl font-semibold text-gray-900 mb-4">How frameworks handle this</h4>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                            <strong>Graph-based frameworks</strong> integrate tools in two ways: as explicit workflow 
+                            nodes where execution is fixed by control-flow logic, or as agent-callable functions 
+                            constrained by the graph structure.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                            <strong>Role-based frameworks</strong> bind tools to agent roles and task context. Agents 
+                            can dynamically select tools during reasoning, but access is constrained by orchestration 
+                            semantics.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            <strong>GABM frameworks</strong> remove direct tool access from agents. All external 
+                            actions route through an environment controller that interprets agent intentions and 
+                            updates global state.
+                        </p>
+                    </div>
+                    <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                        <table class="w-full text-xs">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-4 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">Framework</th>
+                                    <th class="px-4 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">Tool Model</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">Graph-based</td>
+                                    <td class="px-4 py-2 text-gray-700">Agent-bound or graph nodes</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">Role-based</td>
+                                    <td class="px-4 py-2 text-gray-700">Agent-bound, role-constrained</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">GABM</td>
+                                    <td class="px-4 py-2 text-gray-700">Environment-executed</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    <strong>Trade-off:</strong> Procedural invocation offers strict control and stable costs. 
+                    Role-conditioned access enables flexible problem solving with weaker guarantees. Environment-mediated 
+                    execution supports persistent state evolution while limiting direct agent control.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Planning -->
-    <section id="planning" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+    <!-- Multi-Agent Characteristics -->
+    <section id="multi-agent" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 border-t border-gray-200">
         <div class="max-w-6xl mx-auto">
-            <div class="mb-12">
-                <div class="flex items-center mb-4">
-                    <div class="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mr-4">
-                        <i class="fas fa-route text-green-600 text-3xl"></i>
-                    </div>
-                    <h2 class="text-4xl font-bold text-gray-900">Planning</h2>
-                </div>
-                <p class="text-xl text-gray-600">How reasoning steps are structured</p>
-            </div>
+            <h2 class="text-4xl font-bold text-gray-900 mb-8">Multi-Agent Characteristics</h2>
+            <p class="text-lg text-gray-700 mb-12 leading-relaxed">
+                These dimensions control how agents interact with each other. They determine who can talk to whom, 
+                how information flows, and whether agents can collaborate on decisions.
+            </p>
 
-            <div class="grid md:grid-cols-2 gap-12 mb-12">
-                <div class="bg-green-50 border-2 border-green-200 rounded-xl p-8">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-                        <i class="fas fa-check-circle text-green-600 mr-3"></i>
-                        What Works
-                    </h3>
-                    <ul class="space-y-3 text-gray-700">
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
-                            <span><strong>Clear step structure:</strong> Well-defined reasoning stages</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
-                            <span><strong>Iterative refinement:</strong> Allow plans to evolve</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
-                            <span><strong>Feedback loops:</strong> Plans adapt based on execution</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="bg-red-50 border-2 border-red-200 rounded-xl p-8">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-                        <i class="fas fa-times-circle text-red-600 mr-3"></i>
-                        What Breaks
-                    </h3>
-                    <ul class="space-y-3 text-gray-700">
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
-                            <span><strong>Rigid interfaces:</strong> Forcing unnatural reasoning patterns</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
-                            <span><strong>No iteration:</strong> One-shot planning without refinement</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
-                            <span><strong>Poor abstraction:</strong> Planning API doesn't match LLM capabilities</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
-                <h4 class="text-lg font-bold text-gray-900 mb-2">Practical Takeaway</h4>
-                <p class="text-gray-700">
-                    Bad planning interfaces can reduce accuracy by 30%. Design planning APIs that match how LLMs reason. 
-                    Support iterative planning and allow plans to adapt based on execution feedback.
+            <!-- Network Topology -->
+            <div class="mb-16 pb-16 border-b border-gray-200">
+                <h3 class="text-3xl font-semibold text-gray-900 mb-6">Network Topology</h3>
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    This dimension controls how agents are connected and which coordination patterns are possible. 
+                    The topology shapes what information can flow between agents and how quickly coordination happens.
                 </p>
+                
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold text-gray-900 mb-4">How frameworks handle this</h4>
+                    <div class="grid md:grid-cols-3 gap-6 mb-8">
+                        <div>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                <strong>Graph-based frameworks</strong> let you define explicit topologies as directed 
+                                graphs at design time. You can create hierarchical, peer-to-peer, or cyclic structures, 
+                                but the topology stays fixed during execution.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                <strong>Role-based frameworks</strong> create topology implicitly through task decomposition 
+                                and role assignments. This typically results in sequential pipelines or manager-worker 
+                                hierarchies with limited lateral interaction.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-lg text-gray-700 leading-relaxed">
+                                <strong>GABM frameworks</strong> centralize interaction through an environment controller 
+                                (Game Master), enforcing a star topology where agents only interact with the environment, 
+                                not directly with each other.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white border border-gray-300 rounded-lg p-8 mb-8">
+                    <h4 class="text-lg font-semibold text-gray-900 mb-6 text-center">Network Topology Examples</h4>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <!-- Graph-based: Supervisor -->
+                        <div class="text-center">
+                            <p class="text-sm font-semibold text-gray-900 mb-3">Graph-based: Supervisor</p>
+                            <div class="flex justify-center mb-2">
+                                <svg width="120" height="100" class="border border-gray-300 rounded bg-gray-50">
+                                    <!-- Level 1: Root -->
+                                    <circle cx="60" cy="15" r="8" fill="#4F46E5" stroke="#312E81" stroke-width="2"/>
+                                    <text x="55" y="19" font-size="10" fill="white" font-weight="bold">S</text>
+                                    
+                                    <!-- Level 2: Two nodes -->
+                                    <circle cx="30" cy="45" r="7" fill="#6366F1" stroke="#4338CA" stroke-width="1.5"/>
+                                    <text x="26" y="49" font-size="9" fill="white" font-weight="bold">A1</text>
+                                    <circle cx="90" cy="45" r="7" fill="#6366F1" stroke="#4338CA" stroke-width="1.5"/>
+                                    <text x="86" y="49" font-size="9" fill="white" font-weight="bold">A2</text>
+                                    
+                                    <!-- Level 3: Four nodes -->
+                                    <circle cx="15" cy="75" r="6" fill="#818CF8" stroke="#6366F1" stroke-width="1"/>
+                                    <text x="12" y="79" font-size="8" fill="white">a1</text>
+                                    <circle cx="35" cy="75" r="6" fill="#818CF8" stroke="#6366F1" stroke-width="1"/>
+                                    <text x="32" y="79" font-size="8" fill="white">a2</text>
+                                    <circle cx="75" cy="75" r="6" fill="#818CF8" stroke="#6366F1" stroke-width="1"/>
+                                    <text x="72" y="79" font-size="8" fill="white">a3</text>
+                                    <circle cx="95" cy="75" r="6" fill="#818CF8" stroke="#6366F1" stroke-width="1"/>
+                                    <text x="92" y="79" font-size="8" fill="white">a4</text>
+                                    
+                                    <!-- Edges -->
+                                    <line x1="60" y1="23" x2="30" y2="38" stroke="#6B7280" stroke-width="2" marker-end="url(#arrowhead)"/>
+                                    <line x1="60" y1="23" x2="90" y2="38" stroke="#6B7280" stroke-width="2" marker-end="url(#arrowhead)"/>
+                                    <line x1="30" y1="52" x2="15" y2="69" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                                    <line x1="30" y1="52" x2="35" y2="69" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                                    <line x1="90" y1="52" x2="75" y2="69" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                                    <line x1="90" y1="52" x2="95" y2="69" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                                    
+                                    <!-- Arrow marker definition -->
+                                    <defs>
+                                        <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                                            <polygon points="0 0, 6 3, 0 6" fill="#6B7280"/>
+                                        </marker>
+                                    </defs>
+                                </svg>
+                            </div>
+                            <p class="text-xs text-gray-600">Hierarchical tree structure</p>
+                        </div>
+                        
+                        <!-- Graph-based: Network -->
+                        <div class="text-center">
+                            <p class="text-sm font-semibold text-gray-900 mb-3">Graph-based: Network</p>
+                            <div class="flex justify-center mb-2">
+                                <svg width="100" height="100" class="border border-gray-300 rounded bg-gray-50">
+                                    <!-- Four nodes in square -->
+                                    <circle cx="30" cy="30" r="8" fill="#4F46E5" stroke="#312E81" stroke-width="2"/>
+                                    <text x="25" y="34" font-size="10" fill="white" font-weight="bold">A1</text>
+                                    <circle cx="70" cy="30" r="8" fill="#4F46E5" stroke="#312E81" stroke-width="2"/>
+                                    <text x="65" y="34" font-size="10" fill="white" font-weight="bold">A2</text>
+                                    <circle cx="30" cy="70" r="8" fill="#4F46E5" stroke="#312E81" stroke-width="2"/>
+                                    <text x="25" y="74" font-size="10" fill="white" font-weight="bold">A3</text>
+                                    <circle cx="70" cy="70" r="8" fill="#4F46E5" stroke="#312E81" stroke-width="2"/>
+                                    <text x="65" y="74" font-size="10" fill="white" font-weight="bold">A4</text>
+                                    
+                                    <!-- All edges (fully connected) -->
+                                    <line x1="30" y1="30" x2="70" y2="30" stroke="#6B7280" stroke-width="1.5"/>
+                                    <line x1="30" y1="30" x2="30" y2="70" stroke="#6B7280" stroke-width="1.5"/>
+                                    <line x1="30" y1="30" x2="70" y2="70" stroke="#6B7280" stroke-width="1.5"/>
+                                    <line x1="70" y1="30" x2="70" y2="70" stroke="#6B7280" stroke-width="1.5"/>
+                                    <line x1="70" y1="30" x2="30" y2="70" stroke="#6B7280" stroke-width="1.5"/>
+                                    <line x1="30" y1="70" x2="70" y2="70" stroke="#6B7280" stroke-width="1.5"/>
+                                </svg>
+                            </div>
+                            <p class="text-xs text-gray-600">Fully connected graph</p>
+                        </div>
+                        
+                        <!-- Role-based: Task hierarchy -->
+                        <div class="text-center">
+                            <p class="text-sm font-semibold text-gray-900 mb-3">Role-based: Task hierarchy</p>
+                            <div class="flex justify-center mb-2">
+                                <svg width="120" height="110" class="border border-gray-300 rounded bg-gray-50">
+                                    <!-- Orchestrator at top -->
+                                    <rect x="45" y="10" width="30" height="18" rx="3" fill="#10B981" stroke="#059669" stroke-width="2"/>
+                                    <text x="52" y="23" font-size="11" fill="white" font-weight="bold">Orch</text>
+                                    
+                                    <!-- Three agents -->
+                                    <circle cx="25" cy="50" r="9" fill="#34D399" stroke="#10B981" stroke-width="1.5"/>
+                                    <text x="19" y="55" font-size="9" fill="white" font-weight="bold">Agent</text>
+                                    <circle cx="60" cy="50" r="9" fill="#34D399" stroke="#10B981" stroke-width="1.5"/>
+                                    <text x="54" y="55" font-size="9" fill="white" font-weight="bold">Agent</text>
+                                    <circle cx="95" cy="50" r="9" fill="#34D399" stroke="#10B981" stroke-width="1.5"/>
+                                    <text x="89" y="55" font-size="9" fill="white" font-weight="bold">Agent</text>
+                                    
+                                    <!-- Two tasks connected to middle agent -->
+                                    <rect x="20" y="80" width="20" height="16" rx="2" fill="#6EE7B7" stroke="#34D399" stroke-width="1"/>
+                                    <text x="25" y="91" font-size="8" fill="#065F46" font-weight="bold">Task</text>
+                                    <rect x="50" y="80" width="20" height="16" rx="2" fill="#6EE7B7" stroke="#34D399" stroke-width="1"/>
+                                    <text x="55" y="91" font-size="8" fill="#065F46" font-weight="bold">Task</text>
+                                    
+                                    <!-- Edges -->
+                                    <line x1="60" y1="28" x2="25" y2="41" stroke="#6B7280" stroke-width="2" marker-end="url(#arrowhead2)"/>
+                                    <line x1="60" y1="28" x2="60" y2="41" stroke="#6B7280" stroke-width="2" marker-end="url(#arrowhead2)"/>
+                                    <line x1="60" y1="28" x2="95" y2="41" stroke="#6B7280" stroke-width="2" marker-end="url(#arrowhead2)"/>
+                                    <line x1="60" y1="59" x2="30" y2="80" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                                    <line x1="60" y1="59" x2="60" y2="80" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                                    
+                                    <!-- Arrow marker definition -->
+                                    <defs>
+                                        <marker id="arrowhead2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                                            <polygon points="0 0, 6 3, 0 6" fill="#6B7280"/>
+                                        </marker>
+                                    </defs>
+                                </svg>
+                            </div>
+                            <p class="text-xs text-gray-600">Orchestrator → Agents → Tasks</p>
+                        </div>
+                    </div>
+                    
+                    <!-- GABM Star topology - full width -->
+                    <div class="mt-8 pt-8 border-t border-gray-200">
+                        <div class="text-center">
+                            <p class="text-sm font-semibold text-gray-900 mb-4">GABM: Star topology</p>
+                            <div class="flex justify-center">
+                                <svg width="140" height="140" class="border border-gray-300 rounded bg-gray-50">
+                                    <!-- Central Game Master -->
+                                    <circle cx="70" cy="70" r="16" fill="#F59E0B" stroke="#D97706" stroke-width="2.5"/>
+                                    <text x="58" y="76" font-size="12" fill="white" font-weight="bold">GM</text>
+                                    
+                                    <!-- Four agents around GM -->
+                                    <circle cx="70" cy="25" r="10" fill="#FBBF24" stroke="#F59E0B" stroke-width="2"/>
+                                    <text x="66" y="30" font-size="10" fill="white" font-weight="bold">a</text>
+                                    <circle cx="115" cy="70" r="10" fill="#FBBF24" stroke="#F59E0B" stroke-width="2"/>
+                                    <text x="111" y="75" font-size="10" fill="white" font-weight="bold">a</text>
+                                    <circle cx="70" cy="115" r="10" fill="#FBBF24" stroke="#F59E0B" stroke-width="2"/>
+                                    <text x="66" y="120" font-size="10" fill="white" font-weight="bold">a</text>
+                                    <circle cx="25" cy="70" r="10" fill="#FBBF24" stroke="#F59E0B" stroke-width="2"/>
+                                    <text x="21" y="75" font-size="10" fill="white" font-weight="bold">a</text>
+                                    
+                                    <!-- Bidirectional edges (shown as double lines) -->
+                                    <line x1="70" y1="54" x2="70" y2="35" stroke="#6B7280" stroke-width="2" marker-end="url(#arrowhead3)"/>
+                                    <line x1="70" y1="54" x2="70" y2="35" stroke="#6B7280" stroke-width="2" stroke-dasharray="2,2" opacity="0.5"/>
+                                    <line x1="86" y1="70" x2="105" y2="70" stroke="#6B7280" stroke-width="2" marker-end="url(#arrowhead3)"/>
+                                    <line x1="86" y1="70" x2="105" y2="70" stroke="#6B7280" stroke-width="2" stroke-dasharray="2,2" opacity="0.5"/>
+                                    <line x1="70" y1="86" x2="70" y2="105" stroke="#6B7280" stroke-width="2" marker-end="url(#arrowhead3)"/>
+                                    <line x1="70" y1="86" x2="70" y2="105" stroke="#6B7280" stroke-width="2" stroke-dasharray="2,2" opacity="0.5"/>
+                                    <line x1="54" y1="70" x2="35" y2="70" stroke="#6B7280" stroke-width="2" marker-end="url(#arrowhead3)"/>
+                                    <line x1="54" y1="70" x2="35" y2="70" stroke="#6B7280" stroke-width="2" stroke-dasharray="2,2" opacity="0.5"/>
+                                    
+                                    <!-- Arrow marker definition -->
+                                    <defs>
+                                        <marker id="arrowhead3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                                            <polygon points="0 0, 6 3, 0 6" fill="#6B7280"/>
+                                        </marker>
+                                    </defs>
+                                </svg>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-2">All agents connect only to Game Master (GM)</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                    <table class="w-full text-xs">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">Framework</th>
+                                <th class="px-4 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">Topology</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-4 py-2 text-gray-700">Graph-based</td>
+                                <td class="px-4 py-2 text-gray-700">Flexible; fixed once defined</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 text-gray-700">Role-based</td>
+                                <td class="px-4 py-2 text-gray-700">Task hierarchy or sequence</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 text-gray-700">GABM</td>
+                                <td class="px-4 py-2 text-gray-700">Fixed star; GM at center</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Communication Pattern -->
+            <div class="mb-16 pb-16 border-b border-gray-200">
+                <h3 class="text-3xl font-semibold text-gray-900 mb-6">Communication Pattern</h3>
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    This dimension controls how information moves between agents. Communication can happen through 
+                    state propagation, message passing, or environment observation.
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <h4 class="text-xl font-semibold text-gray-900 mb-4">How frameworks handle this</h4>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                            <strong>Graph-based frameworks</strong> realize communication through deterministic 
+                            state propagation along predefined edges in the execution graph, rather than explicit 
+                            message passing between agents.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                            <strong>Role-based frameworks</strong> route communication primarily through task 
+                            assignment, intermediate result passing, and reporting mechanisms embedded in hierarchical 
+                            or sequential coordination structures.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            <strong>GABM frameworks</strong> eliminate direct inter-agent messaging. All interaction 
+                            is mediated through a shared environment that aggregates agent actions and produces new 
+                            observations for subsequent reasoning.
+                        </p>
+                    </div>
+                    <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                        <table class="w-full text-xs">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-4 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">Framework</th>
+                                    <th class="px-4 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">Communication</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">Graph-based</td>
+                                    <td class="px-4 py-2 text-gray-700">Shared state along edges</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">Role-based</td>
+                                    <td class="px-4 py-2 text-gray-700">Task-mediated; limited peer querying</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">GABM</td>
+                                    <td class="px-4 py-2 text-gray-700">Only via GM; no peer-to-peer</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Collaboration -->
+            <div class="mb-16">
+                <h3 class="text-3xl font-semibold text-gray-900 mb-6">Collaboration</h3>
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    This dimension captures whether frameworks provide explicit mechanisms for agents to jointly 
+                    coordinate decisions beyond procedural execution.
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <h4 class="text-xl font-semibold text-gray-900 mb-4">How frameworks handle this</h4>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                            <strong>Graph-based frameworks</strong> do not support first-class collaboration. They 
+                            rely entirely on procedural coordination enforced by predefined workflows.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                            <strong>Role-based frameworks</strong> enable limited forms of collaboration through 
+                            delegation, task handoff, and manager-worker coordination among role-specialized agents. 
+                            However, they generally lack support for multi-turn negotiation or collective decision-making protocols.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            <strong>GABM frameworks</strong> expose no explicit collaboration mechanisms. Collective 
+                            behavior emerges indirectly from shared environment dynamics rather than from intentional 
+                            or negotiated coordination among agents.
+                        </p>
+                    </div>
+                    <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                        <table class="w-full text-xs">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-4 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">Framework</th>
+                                    <th class="px-4 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">Collaboration</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">Graph-based</td>
+                                    <td class="px-4 py-2 text-gray-700">None; procedural only</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">Role-based</td>
+                                    <td class="px-4 py-2 text-gray-700">Partial; delegation-based</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-gray-700">GABM</td>
+                                    <td class="px-4 py-2 text-gray-700">None; emergent only</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Specialization -->
-    <section id="specialization" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+    <!-- Environment -->
+    <section id="environment" class="py-20 px-4 sm:px-6 lg:px-8 bg-white border-t border-gray-200">
         <div class="max-w-6xl mx-auto">
-            <div class="mb-12">
-                <div class="flex items-center mb-4">
-                    <div class="w-16 h-16 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
-                        <i class="fas fa-user-tag text-orange-600 text-3xl"></i>
-                    </div>
-                    <h2 class="text-4xl font-bold text-gray-900">Specialization</h2>
+            <h2 class="text-4xl font-bold text-gray-900 mb-8">Environment</h2>
+            <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                This dimension determines whether system execution is mediated through an explicit shared world state 
+                or through agent-local and developer-managed state.
+            </p>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-4">How frameworks handle this</h4>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                        <strong>Graph-based and role-based frameworks</strong> do not maintain a first-class environment. 
+                        They rely instead on workflows and task context effects that are not reflected in a persistent 
+                        global state.
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        <strong>GABM frameworks</strong> centralize execution around an explicit environment that 
+                        tracks world state and applies agent actions over time. This environment maintains grounded 
+                        variables that represent the current state of the simulated world.
+                    </p>
                 </div>
-                <p class="text-xl text-gray-600">How behavior is activated</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-12 mb-12">
-                <div class="bg-green-50 border-2 border-green-200 rounded-xl p-8">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-                        <i class="fas fa-check-circle text-green-600 mr-3"></i>
-                        What Works
-                    </h3>
-                    <ul class="space-y-3 text-gray-700">
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
-                            <span><strong>Role-based activation:</strong> Agents have clear, distinct roles</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
-                            <span><strong>Tool specialization:</strong> Agents access relevant tools efficiently</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
-                            <span><strong>Context-aware routing:</strong> Right agent for the right task</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="bg-red-50 border-2 border-red-200 rounded-xl p-8">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-                        <i class="fas fa-times-circle text-red-600 mr-3"></i>
-                        What Breaks
-                    </h3>
-                    <ul class="space-y-3 text-gray-700">
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
-                            <span><strong>Generic agents:</strong> All agents do everything poorly</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
-                            <span><strong>Poor routing:</strong> Wrong agent handles the task</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
-                            <span><strong>Tool confusion:</strong> Agents can't access needed capabilities</span>
-                        </li>
-                    </ul>
+                <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                    <table class="w-full text-xs">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">Framework</th>
+                                <th class="px-4 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">Environment</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-4 py-2 text-gray-700">Graph-based</td>
+                                <td class="px-4 py-2 text-gray-700">None; execution context only</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 text-gray-700">Role-based</td>
+                                <td class="px-4 py-2 text-gray-700">None; task-centric context</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 text-gray-700">GABM</td>
+                                <td class="px-4 py-2 text-gray-700">Explicit world state with grounded variables</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-
-            <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
-                <h4 class="text-lg font-bold text-gray-900 mb-2">Practical Takeaway</h4>
-                <p class="text-gray-700">
-                    Specialization can improve F1 scores by 58 points. Design clear agent roles and efficient routing. 
-                    Give agents access to the right tools and context for their specific function.
-                </p>
-            </div>
+            
+            <p class="text-lg text-gray-700 leading-relaxed">
+                <strong>Trade-off:</strong> Explicit environments enable persistent state evolution and simulation-based 
+                analysis, but add execution overhead and reduce direct control. Workflow-based execution is more 
+                efficient but lacks persistent global state.
+            </p>
         </div>
     </section>
 
-    <!-- Communication -->
-    <section id="communication" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+    <!-- Synthesis -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 border-t border-gray-200">
         <div class="max-w-6xl mx-auto">
-            <div class="mb-12">
-                <div class="flex items-center mb-4">
-                    <div class="w-16 h-16 bg-pink-100 rounded-lg flex items-center justify-center mr-4">
-                        <i class="fas fa-network-wired text-pink-600 text-3xl"></i>
-                    </div>
-                    <h2 class="text-4xl font-bold text-gray-900">Communication</h2>
-                </div>
-                <p class="text-xl text-gray-600">How agents talk and coordinate</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-12 mb-12">
-                <div class="bg-green-50 border-2 border-green-200 rounded-xl p-8">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-                        <i class="fas fa-check-circle text-green-600 mr-3"></i>
-                        What Works
-                    </h3>
-                    <ul class="space-y-3 text-gray-700">
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
-                            <span><strong>Efficient topologies:</strong> Agents can reach consensus quickly</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
-                            <span><strong>Broadcast patterns:</strong> Important info reaches all agents</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
-                            <span><strong>Minimal rounds:</strong> Coordination converges fast</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="bg-red-50 border-2 border-red-200 rounded-xl p-8">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-                        <i class="fas fa-times-circle text-red-600 mr-3"></i>
-                        What Breaks
-                    </h3>
-                    <ul class="space-y-3 text-gray-700">
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
-                            <span><strong>Isolated clusters:</strong> Agents can't coordinate across groups</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
-                            <span><strong>Bottleneck nodes:</strong> Single points of failure</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
-                            <span><strong>Slow diffusion:</strong> Information takes too long to spread</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
-                <h4 class="text-lg font-bold text-gray-900 mb-2">Practical Takeaway</h4>
-                <p class="text-gray-700">
-                    Communication topology can make coordination success drop from 90% to below 30%. 
-                    Design communication patterns that enable fast information diffusion. Avoid isolated clusters 
-                    and bottleneck nodes. Consider topology when scaling to many agents.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Summary -->
-    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-indigo-600">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-4xl font-bold text-white mb-6">Design Principles Summary</h2>
-            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-8 text-left">
-                <ul class="space-y-4 text-indigo-100 text-lg">
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-white mr-3 mt-1"></i>
-                        <span>Maximize parallelism in orchestration; minimize blocking</span>
+            <h2 class="text-4xl font-bold text-gray-900 mb-8">Synthesis: Architectural Trade-offs</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                Across all these dimensions, framework design trades execution control and efficiency for behavioral 
+                flexibility and persistent state modeling.
+            </p>
+            <div class="bg-white border border-gray-300 rounded-lg p-8">
+                <ul class="space-y-4 text-lg text-gray-700">
+                    <li>
+                        <strong>Graph-based architectures</strong> favor deterministic control flow and low-overhead 
+                        coordination, supporting predictable and scalable pipelines.
                     </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-white mr-3 mt-1"></i>
-                        <span>Design memory to flow efficiently between agents</span>
+                    <li>
+                        <strong>Role-based architectures</strong> relax structural constraints to enable adaptive reasoning 
+                        and specialization through declarative roles and task decomposition.
                     </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-white mr-3 mt-1"></i>
-                        <span>Match planning interfaces to LLM reasoning patterns</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-white mr-3 mt-1"></i>
-                        <span>Enable clear agent specialization with proper routing</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-white mr-3 mt-1"></i>
-                        <span>Choose communication topologies that enable fast coordination</span>
+                    <li>
+                        <strong>GABM architectures</strong> shift coordination and memory into a shared environment, 
+                        supporting emergent behavior and simulation-based analysis at the cost of higher execution 
+                        overhead and reduced direct control.
                     </li>
                 </ul>
             </div>
-            <a href="results.html" class="inline-block mt-8 px-8 py-4 bg-white text-indigo-600 rounded-lg font-semibold text-lg hover:bg-gray-100 transition shadow-lg">
-                See the Results
+            <p class="text-lg text-gray-700 leading-relaxed mt-6">
+                Together, these architectures represent distinct trade-offs among predictability, adaptability, and 
+                persistent state coherence in multi-agent systems. Understanding these trade-offs helps you choose 
+                the right framework for your specific needs.
+            </p>
+        </div>
+    </section>
+
+    <!-- How Dimensions Interact -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 border-t border-gray-200">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-gray-900 mb-8">How These Design Dimensions Interact</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                These dimensions do not operate in isolation. Behavioral specification affects how agents use memory 
+                and tools. Network topology constrains communication patterns, which in turn affects collaboration. 
+                Storage architecture interacts with environment design. The interaction of these dimensions creates 
+                the overall system behavior observed in empirical evaluations.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                Framework paradigms enforce certain combinations of these dimensions while leaving others configurable. 
+                Understanding which dimensions are fixed and which are controllable enables informed framework 
+                selection and system design that matches performance requirements.
+            </p>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white border-t border-gray-200">
+        <div class="max-w-4xl mx-auto text-center">
+            <a href="results.html" class="inline-block px-8 py-4 bg-indigo-600 text-white rounded-lg font-semibold text-lg hover:bg-indigo-700 transition border border-indigo-600">
+                View Experimental Results
             </a>
         </div>
     </section>
@@ -481,4 +1048,553 @@
     <script src="scripts/main.js"></script>
 </body>
 </html>
+                <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                    <table class="w-full text-sm">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Design choice</th>
+                                <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Direct sequential</td>
+                                <td class="px-6 py-4 text-gray-700">Agents execute one after another in a fixed order</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Graph-based state machine</td>
+                                <td class="px-6 py-4 text-gray-700">Execution follows graph edges, nodes represent agent states</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Parallel execution</td>
+                                <td class="px-6 py-4 text-gray-700">Independent agents run simultaneously</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Event-driven</td>
+                                <td class="px-6 py-4 text-gray-700">Agents respond to events or messages asynchronously</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Simulation loop</td>
+                                <td class="px-6 py-4 text-gray-700">Discrete time steps with agent-environment interactions</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">C. Who controls this?</h3>
+                <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                    <table class="w-full text-sm">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Framework paradigm</th>
+                                <th class="px-6 py-3 text-center font-semibold text-gray-900 border-b border-gray-300">Fixed by framework</th>
+                                <th class="px-6 py-3 text-center font-semibold text-gray-900 border-b border-gray-300">Designer configurable</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Direct LLM invocation</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Minimal</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Full control</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Graph-based workflows</td>
+                                <td class="px-6 py-4 text-center text-gray-700">State machine model</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Graph structure, node logic</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Role-based pipelines</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Role abstraction</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Execution order, parallelism</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Simulation-style</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Time-step loop</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Agent update logic</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">D. Why it impacts performance</h3>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Orchestration overhead directly determines latency. Sequential execution creates bottlenecks, 
+                    while parallel execution enables concurrency. Simulation loops introduce per-step overhead that 
+                    accumulates. Results show orchestration can create latency multipliers from 1.3× (efficient 
+                    graph workflows) to over 117× (simulation-style loops) compared to direct LLM calls.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Memory -->
+    <section id="memory" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 border-t border-gray-200">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-gray-900 mb-8">Memory</h2>
+            
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">A. What this dimension means</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Memory defines how information is stored, retrieved, and shared between agents. It encompasses 
+                    the storage strategy (accumulation vs retrieval), access patterns, indexing mechanisms, and 
+                    the scope of shared vs isolated memory across agents.
+                </p>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">B. Common design choices</h3>
+                <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                    <table class="w-full text-sm">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Design choice</th>
+                                <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Context accumulation</td>
+                                <td class="px-6 py-4 text-gray-700">All interactions appended to growing context</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Retrieval-based</td>
+                                <td class="px-6 py-4 text-gray-700">Information retrieved on-demand from indexed storage</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Shared memory pool</td>
+                                <td class="px-6 py-4 text-gray-700">Agents access common memory space</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Isolated memory</td>
+                                <td class="px-6 py-4 text-gray-700">Each agent maintains separate memory</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Hybrid approach</td>
+                                <td class="px-6 py-4 text-gray-700">Combination of accumulation and retrieval with bounds</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">C. Who controls this?</h3>
+                <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                    <table class="w-full text-sm">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Framework paradigm</th>
+                                <th class="px-6 py-3 text-center font-semibold text-gray-900 border-b border-gray-300">Fixed by framework</th>
+                                <th class="px-6 py-3 text-center font-semibold text-gray-900 border-b border-gray-300">Designer configurable</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Direct LLM invocation</td>
+                                <td class="px-6 py-4 text-center text-gray-700">None</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Full control</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Graph-based workflows</td>
+                                <td class="px-6 py-4 text-center text-gray-700">State persistence model</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Storage backend, retrieval logic</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Role-based pipelines</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Memory abstraction</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Storage strategy, sharing scope</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Simulation-style</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Environment state model</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Observation encoding, state updates</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">D. Why it impacts performance</h3>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Memory strategy determines runtime cost and recall accuracy. Accumulation leads to exponential 
+                    cost growth as context size increases, while retrieval maintains bounded cost. Memory structure 
+                    affects what agents remember: isolated memory prevents information sharing, while shared memory 
+                    enables coordination. Experiments show memory scores ranging from 6.1% (accumulation) to 23.8% 
+                    (retrieval-based) across frameworks.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Planning -->
+    <section id="planning" class="py-20 px-4 sm:px-6 lg:px-8 bg-white border-t border-gray-200">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-gray-900 mb-8">Planning</h2>
+            
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">A. What this dimension means</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Planning defines how reasoning steps are structured and how agents formulate and execute plans. 
+                    It encompasses the planning interface (free-form vs schema-constrained), iteration mechanisms, 
+                    and the relationship between planning and execution.
+                </p>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">B. Common design choices</h3>
+                <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                    <table class="w-full text-sm">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Design choice</th>
+                                <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Free-form reasoning</td>
+                                <td class="px-6 py-4 text-gray-700">LLMs plan in natural language without schema constraints</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Rigid schema planning</td>
+                                <td class="px-6 py-4 text-gray-700">Forced into predefined formats (JSON, structured steps)</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Iterative refinement</td>
+                                <td class="px-6 py-4 text-gray-700">Plans evolve based on execution feedback</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">One-shot planning</td>
+                                <td class="px-6 py-4 text-gray-700">Single planning phase before execution</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Reactive planning</td>
+                                <td class="px-6 py-4 text-gray-700">Plans generated dynamically in response to events</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">C. Who controls this?</h3>
+                <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                    <table class="w-full text-sm">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Framework paradigm</th>
+                                <th class="px-6 py-3 text-center font-semibold text-gray-900 border-b border-gray-300">Fixed by framework</th>
+                                <th class="px-6 py-3 text-center font-semibold text-gray-900 border-b border-gray-300">Designer configurable</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Direct LLM invocation</td>
+                                <td class="px-6 py-4 text-center text-gray-700">None</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Full control</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Graph-based workflows</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Node transition model</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Planning logic in nodes</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Role-based pipelines</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Role execution model</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Planning interface, iteration</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Simulation-style</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Time-step constraints</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Agent decision logic</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">D. Why it impacts performance</h3>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Planning interfaces that match LLM reasoning patterns improve accuracy, while rigid schemas 
+                    conflict with natural language processing and cause formatting failures. Free-form iterative 
+                    planning can improve accuracy by 15%, while rigid schema constraints can reduce it by 30%. 
+                    Planning overhead also affects runtime, with multipliers ranging from 1.2× (free-form) to 30× 
+                    (schema-constrained with retries).
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specialization -->
+    <section id="specialization" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 border-t border-gray-200">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-gray-900 mb-8">Specialization</h2>
+            
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">A. What this dimension means</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Specialization defines how agent behavior is activated and how agents access domain-specific 
+                    knowledge or tools. It encompasses role definitions, procedural guidance, expert conditioning, 
+                    and the mechanisms for routing tasks to appropriate agents.
+                </p>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">B. Common design choices</h3>
+                <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                    <table class="w-full text-sm">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Design choice</th>
+                                <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Generic agents</td>
+                                <td class="px-6 py-4 text-gray-700">All agents have identical capabilities</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Role-based specialization</td>
+                                <td class="px-6 py-4 text-gray-700">Agents assigned distinct roles with role-specific prompts</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Procedural expert guidance</td>
+                                <td class="px-6 py-4 text-gray-700">Agents conditioned with procedural expert instructions</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Tool-based specialization</td>
+                                <td class="px-6 py-4 text-gray-700">Agents access different tool sets based on specialization</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Context-aware routing</td>
+                                <td class="px-6 py-4 text-gray-700">Tasks routed to specialized agents based on content</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">C. Who controls this?</h3>
+                <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                    <table class="w-full text-sm">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Framework paradigm</th>
+                                <th class="px-6 py-3 text-center font-semibold text-gray-900 border-b border-gray-300">Fixed by framework</th>
+                                <th class="px-6 py-3 text-center font-semibold text-gray-900 border-b border-gray-300">Designer configurable</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Direct LLM invocation</td>
+                                <td class="px-6 py-4 text-center text-gray-700">None</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Full control</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Graph-based workflows</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Node abstraction</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Node specialization, routing logic</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Role-based pipelines</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Role abstraction</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Role definitions, tool access, routing</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Simulation-style</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Agent abstraction</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Agent behaviors, specialization logic</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">D. Why it impacts performance</h3>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Specialization enables agents to focus on specific tasks, improving accuracy and efficiency. 
+                    Procedural expert-guided conditioning provides clear behavioral guidance that matches task 
+                    requirements. Results show specialization can improve F1 scores by up to 58 points compared 
+                    to generic agent designs, with proper routing and tool access being critical factors.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Communication -->
+    <section id="communication" class="py-20 px-4 sm:px-6 lg:px-8 bg-white border-t border-gray-200">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-gray-900 mb-8">Communication</h2>
+            
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">A. What this dimension means</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Communication defines how agents exchange information and coordinate decisions. It encompasses 
+                    the communication topology (network structure), message passing mechanisms, synchronization 
+                    patterns, and the protocols for multi-agent coordination.
+                </p>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">B. Common design choices</h3>
+                <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                    <table class="w-full text-sm">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Design choice</th>
+                                <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Fully connected</td>
+                                <td class="px-6 py-4 text-gray-700">All agents can communicate with all others</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Small-world network</td>
+                                <td class="px-6 py-4 text-gray-700">Local clusters with shortcut connections</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Scale-free network</td>
+                                <td class="px-6 py-4 text-gray-700">Hub-based structure with power-law degree distribution</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Geometric topology</td>
+                                <td class="px-6 py-4 text-gray-700">Spatial proximity determines connections (e.g., Delaunay)</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Hierarchical</td>
+                                <td class="px-6 py-4 text-gray-700">Tree-like structure with parent-child relationships</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">C. Who controls this?</h3>
+                <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                    <table class="w-full text-sm">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-6 py-3 text-left font-semibold text-gray-900 border-b border-gray-300">Framework paradigm</th>
+                                <th class="px-6 py-3 text-center font-semibold text-gray-900 border-b border-gray-300">Fixed by framework</th>
+                                <th class="px-6 py-3 text-center font-semibold text-gray-900 border-b border-gray-300">Designer configurable</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Direct LLM invocation</td>
+                                <td class="px-6 py-4 text-center text-gray-700">None</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Full control</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Graph-based workflows</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Edge-based communication</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Graph topology, message passing</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Role-based pipelines</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Role interaction model</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Communication patterns, topology</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-gray-900">Simulation-style</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Environment-mediated</td>
+                                <td class="px-6 py-4 text-center text-gray-700">Observation models, agent visibility</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">D. Why it impacts performance</h3>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Communication topology determines information diffusion speed and coordination capability. 
+                    Fully connected topologies enable fast consensus with success rates above 90%, while geometric 
+                    topologies with isolated clusters prevent coordination, dropping success rates below 30%. 
+                    Topology structure directly limits the ability of agents to reach agreement on distributed 
+                    tasks, affecting both coordination success and communication cost.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How Dimensions Interact -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 border-t border-gray-200">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-gray-900 mb-8">How These Design Dimensions Interact</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                These dimensions do not operate in isolation. Orchestration choices affect memory access patterns. 
+                Communication topology constrains coordination, which in turn depends on memory sharing. Planning 
+                interfaces must align with specialization mechanisms. The interaction of these dimensions creates 
+                the overall system behavior observed in empirical evaluations.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                Framework paradigms enforce certain combinations of these dimensions while leaving others configurable. 
+                Understanding which dimensions are fixed and which are controllable enables informed framework 
+                selection and system design that matches performance requirements.
+            </p>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white border-t border-gray-200">
+        <div class="max-w-4xl mx-auto text-center">
+            <a href="results.html" class="inline-block px-8 py-4 bg-indigo-600 text-white rounded-lg font-semibold text-lg hover:bg-indigo-700 transition border border-indigo-600">
+                View Experimental Results
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">MAFBench</h3>
+                    <p class="text-sm">A unified benchmark for evaluating multi-agent LLM frameworks.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="paper.html" class="hover:text-white">Paper</a></li>
+                        <li><a href="mafbench.html" class="hover:text-white">Benchmark</a></li>
+                        <li><a href="https://github.com/CoDS-GCS/MAFBench" target="_blank" class="hover:text-white">GitHub</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Learn</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="architecture.html" class="hover:text-white">Architecture Guide</a></li>
+                        <li><a href="results.html" class="hover:text-white">Results</a></li>
+                        <li><a href="blog.html" class="hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Connect</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="about.html" class="hover:text-white">About</a></li>
+                        <li><a href="https://github.com/CoDS-GCS/MAFBench" target="_blank" class="hover:text-white">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-sm">
+                <p>&copy; 2024 MAFBench. Research by Concordia University.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Environment | Architecture Guide | MAFBench</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="../index.html" class="text-2xl font-bold text-indigo-600">MAFBench</a>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="../index.html" class="text-gray-600 hover:text-indigo-600">Home</a>
+                    <a href="../design.html" class="text-gray-600 hover:text-indigo-600">Why Design Matters</a>
+                    <div class="dropdown relative">
+                        <a href="index.html" class="text-gray-900 font-medium hover:text-indigo-600 flex items-center">
+                            Architecture Guide
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="index.html">Overview</a>
+                            <a href="single-agent.html">Single-Agent Characteristics</a>
+                            <a href="multi-agent.html">Multi-Agent Characteristics</a>
+                            <a href="environment.html" class="active">Environment</a>
+                        </div>
+                    </div>
+                    <a href="../results.html" class="text-gray-600 hover:text-indigo-600">Results</a>
+                    <a href="../mafbench.html" class="text-gray-600 hover:text-indigo-600">MAFBench</a>
+                    <a href="../paper.html" class="text-gray-600 hover:text-indigo-600">Paper & Code</a>
+                    <a href="../blog.html" class="text-gray-600 hover:text-indigo-600">Blog</a>
+                    <a href="../about.html" class="text-gray-600 hover:text-indigo-600">About</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden text-gray-600">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 py-4 space-y-3">
+                <a href="../index.html" class="block text-gray-600">Home</a>
+                <a href="../design.html" class="block text-gray-600">Why Design Matters</a>
+                <div class="pl-2 border-l-2 border-gray-200">
+                    <a href="index.html" class="block text-gray-900 font-medium mb-2">Architecture Guide</a>
+                    <div class="pl-4 space-y-2">
+                        <a href="index.html" class="block text-gray-600 text-sm">Overview</a>
+                        <a href="single-agent.html" class="block text-gray-600 text-sm">Single-Agent Characteristics</a>
+                        <a href="multi-agent.html" class="block text-gray-600 text-sm">Multi-Agent Characteristics</a>
+                        <a href="environment.html" class="block text-gray-900 font-medium text-sm">Environment</a>
+                    </div>
+                </div>
+                <a href="../results.html" class="block text-gray-600">Results</a>
+                <a href="../mafbench.html" class="block text-gray-600">MAFBench</a>
+                <a href="../paper.html" class="block text-gray-600">Paper & Code</a>
+                <a href="../blog.html" class="block text-gray-600">Blog</a>
+                <a href="../about.html" class="block text-gray-600">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <section class="pt-24 pb-4 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-200">
+        <div class="max-w-6xl mx-auto">
+            <nav class="text-sm text-gray-600">
+                <a href="index.html" class="hover:text-indigo-600">Architecture Guide</a>
+                <span class="mx-2">/</span>
+                <span class="text-gray-900">Environment</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Hero Section -->
+    <section class="pt-12 pb-16 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-200">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                Environment
+            </h1>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                This dimension determines whether system execution is mediated through an explicit shared world state 
+                or through agent-local and developer-managed state.
+            </p>
+        </div>
+    </section>
+
+    <!-- Environment Content -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">How frameworks handle this</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                        <strong>Graph-based and role-based frameworks</strong> do not maintain a first-class environment. 
+                        They rely instead on workflows and task context effects that are not reflected in a persistent 
+                        global state.
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        <strong>GABM frameworks</strong> centralize execution around an explicit environment that 
+                        tracks world state and applies agent actions over time. This environment maintains grounded 
+                        variables that represent the current state of the simulated world.
+                    </p>
+                </div>
+                <div class="bg-white border border-gray-300 rounded-lg overflow-hidden">
+                    <table class="w-full text-xs">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">Framework</th>
+                                <th class="px-4 py-2 text-left font-semibold text-gray-900 border-b border-gray-300">Environment</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-4 py-2 text-gray-700">Graph-based</td>
+                                <td class="px-4 py-2 text-gray-700">None; execution context only</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 text-gray-700">Role-based</td>
+                                <td class="px-4 py-2 text-gray-700">None; task-centric context</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 text-gray-700">GABM</td>
+                                <td class="px-4 py-2 text-gray-700">Explicit world state with grounded variables</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="bg-white border border-gray-300 rounded-lg p-8 mb-8">
+                <h2 class="text-2xl font-semibold text-gray-900 mb-4">World State and Grounded Variables</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                    In GABM frameworks, the environment maintains a persistent world state that evolves over time. 
+                    This state consists of grounded variables that represent the current condition of the simulated 
+                    system. Agents observe this state, make decisions, and their actions update the environment 
+                    through transition functions.
+                </p>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Graph-based and role-based frameworks operate without such an explicit environment. They manage 
+                    state through execution context, workflow variables, or task-specific memory, but these do not 
+                    constitute a persistent, shared world state that all agents can observe and modify.
+                </p>
+            </div>
+            
+            <p class="text-lg text-gray-700 leading-relaxed">
+                <strong>Trade-off:</strong> Explicit environments enable persistent state evolution and simulation-based 
+                analysis, but add execution overhead and reduce direct control. Workflow-based execution is more 
+                efficient but lacks persistent global state.
+            </p>
+        </div>
+    </section>
+
+    <!-- Navigation Links -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-white border-t border-gray-200">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex justify-between items-center">
+                <a href="multi-agent.html" class="text-indigo-600 hover:text-indigo-700 font-semibold">
+                    ← Multi-Agent Characteristics
+                </a>
+                <a href="index.html" class="text-indigo-600 hover:text-indigo-700 font-semibold">
+                    Back to Architecture Guide
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">MAFBench</h3>
+                    <p class="text-sm">A unified benchmark for evaluating multi-agent LLM frameworks.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="../paper.html" class="hover:text-white">Paper</a></li>
+                        <li><a href="../mafbench.html" class="hover:text-white">Benchmark</a></li>
+                        <li><a href="https://github.com/CoDS-GCS/MAFBench" target="_blank" class="hover:text-white">GitHub</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Learn</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html" class="hover:text-white">Architecture Guide</a></li>
+                        <li><a href="../results.html" class="hover:text-white">Results</a></li>
+                        <li><a href="../blog.html" class="hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Connect</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="../about.html" class="hover:text-white">About</a></li>
+                        <li><a href="https://github.com/CoDS-GCS/MAFBench" target="_blank" class="hover:text-white">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-sm">
+                <p>&copy; 2024 MAFBench. Research by Concordia University.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../scripts/main.js"></script>
+</body>
+</html>
+
