@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | MAFBench</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-indigo-600">MAFBench</a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-gray-600 hover:text-indigo-600">Home</a>
+                    <a href="design.html" class="text-gray-600 hover:text-indigo-600">Why Design Matters</a>
+                    <a href="architecture.html" class="text-gray-600 hover:text-indigo-600">Architecture Guide</a>
+                    <a href="results.html" class="text-gray-600 hover:text-indigo-600">Results</a>
+                    <a href="mafbench.html" class="text-gray-600 hover:text-indigo-600">MAFBench</a>
+                    <a href="paper.html" class="text-gray-600 hover:text-indigo-600">Paper & Code</a>
+                    <a href="blog.html" class="text-gray-900 font-medium hover:text-indigo-600">Blog</a>
+                    <a href="about.html" class="text-gray-600 hover:text-indigo-600">About</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden text-gray-600">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 py-4 space-y-3">
+                <a href="index.html" class="block text-gray-600">Home</a>
+                <a href="design.html" class="block text-gray-600">Why Design Matters</a>
+                <a href="architecture.html" class="block text-gray-600">Architecture Guide</a>
+                <a href="results.html" class="block text-gray-600">Results</a>
+                <a href="mafbench.html" class="block text-gray-600">MAFBench</a>
+                <a href="paper.html" class="block text-gray-600">Paper & Code</a>
+                <a href="blog.html" class="block text-gray-900 font-medium">Blog</a>
+                <a href="about.html" class="block text-gray-600">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-indigo-50 to-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+                Blog & Insights
+            </h1>
+            <p class="text-xl text-gray-600">
+                Practical insights on multi-agent AI system design
+            </p>
+        </div>
+    </section>
+
+    <!-- Blog Posts -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="space-y-12">
+                <!-- Post 1 -->
+                <article class="bg-white border-2 border-gray-200 rounded-xl p-8 hover:border-indigo-300 transition">
+                    <div class="flex items-center text-sm text-gray-500 mb-4">
+                        <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full font-semibold mr-4">Architecture</span>
+                        <span>January 2024</span>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                        Why Most Multi-Agent Systems Scale Badly
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-6">
+                        The common mistake: focusing on model quality while ignoring system architecture. 
+                        We explore why orchestration overhead creates 100× latency differences and how to avoid the pitfalls.
+                    </p>
+                    <a href="#" class="text-indigo-600 font-semibold hover:text-indigo-700 inline-flex items-center">
+                        Read more <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </article>
+
+                <!-- Post 2 -->
+                <article class="bg-white border-2 border-gray-200 rounded-xl p-8 hover:border-indigo-300 transition">
+                    <div class="flex items-center text-sm text-gray-500 mb-4">
+                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full font-semibold mr-4">Memory</span>
+                        <span>December 2023</span>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                        Memory Design Mistakes in AI Agents
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-6">
+                        Memory structure matters more than context size. We break down common memory design 
+                        mistakes that cause agents to forget critical information and how to fix them.
+                    </p>
+                    <a href="#" class="text-indigo-600 font-semibold hover:text-indigo-700 inline-flex items-center">
+                        Read more <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </article>
+
+                <!-- Post 3 -->
+                <article class="bg-white border-2 border-gray-200 rounded-xl p-8 hover:border-indigo-300 transition">
+                    <div class="flex items-center text-sm text-gray-500 mb-4">
+                        <span class="bg-green-100 text-green-600 px-3 py-1 rounded-full font-semibold mr-4">Planning</span>
+                        <span>November 2023</span>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                        Planning Interfaces That Break LLM Reasoning
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-6">
+                        Bad planning interfaces can reduce accuracy by 30%. We examine how rigid planning 
+                        APIs conflict with how LLMs actually reason and what to do instead.
+                    </p>
+                    <a href="#" class="text-indigo-600 font-semibold hover:text-indigo-700 inline-flex items-center">
+                        Read more <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </article>
+
+                <!-- Post 4 -->
+                <article class="bg-white border-2 border-gray-200 rounded-xl p-8 hover:border-indigo-300 transition">
+                    <div class="flex items-center text-sm text-gray-500 mb-4">
+                        <span class="bg-orange-100 text-orange-600 px-3 py-1 rounded-full font-semibold mr-4">Coordination</span>
+                        <span>October 2023</span>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                        Communication Topology: The Hidden Factor in Multi-Agent Success
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-6">
+                        Coordination success can drop from 90% to 30% based solely on communication topology. 
+                        Learn which patterns enable fast coordination and which create deadlocks.
+                    </p>
+                    <a href="#" class="text-indigo-600 font-semibold hover:text-indigo-700 inline-flex items-center">
+                        Read more <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </article>
+
+                <!-- Post 5 -->
+                <article class="bg-white border-2 border-gray-200 rounded-xl p-8 hover:border-indigo-300 transition">
+                    <div class="flex items-center text-sm text-gray-500 mb-4">
+                        <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full font-semibold mr-4">Benchmarking</span>
+                        <span>September 2023</span>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                        Introducing MAFBench: A Unified Benchmark for Multi-Agent Frameworks
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-6">
+                        Why we built MAFBench and how it enables fair comparison of multi-agent LLM frameworks. 
+                        Learn about our methodology and how to use it for your own evaluations.
+                    </p>
+                    <a href="mafbench.html" class="text-indigo-600 font-semibold hover:text-indigo-700 inline-flex items-center">
+                        Read more <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </article>
+            </div>
+
+            <!-- Newsletter Signup -->
+            <div class="mt-16 bg-indigo-600 rounded-xl p-12 text-center">
+                <h2 class="text-3xl font-bold text-white mb-4">Stay Updated</h2>
+                <p class="text-indigo-100 mb-6 text-lg">
+                    Get notified about new posts, research updates, and benchmark releases.
+                </p>
+                <form class="max-w-md mx-auto flex gap-4">
+                    <input type="email" placeholder="Your email" class="flex-1 px-4 py-3 rounded-lg focus:ring-2 focus:ring-white focus:outline-none">
+                    <button type="submit" class="px-6 py-3 bg-white text-indigo-600 rounded-lg font-semibold hover:bg-gray-100 transition">
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">MAFBench</h3>
+                    <p class="text-sm">A unified benchmark for evaluating multi-agent LLM frameworks.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="paper.html" class="hover:text-white">Paper</a></li>
+                        <li><a href="mafbench.html" class="hover:text-white">Benchmark</a></li>
+                        <li><a href="https://github.com/CoDS-GCS/MAFBench" target="_blank" class="hover:text-white">GitHub</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Learn</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="architecture.html" class="hover:text-white">Architecture Guide</a></li>
+                        <li><a href="results.html" class="hover:text-white">Results</a></li>
+                        <li><a href="blog.html" class="hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Connect</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="about.html" class="hover:text-white">About</a></li>
+                        <li><a href="https://github.com/CoDS-GCS/MAFBench" target="_blank" class="hover:text-white">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-sm">
+                <p>&copy; 2024 MAFBench. Research by Concordia University.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>
+

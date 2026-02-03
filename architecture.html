@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture Guide | MAFBench</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-indigo-600">MAFBench</a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-gray-600 hover:text-indigo-600">Home</a>
+                    <a href="design.html" class="text-gray-600 hover:text-indigo-600">Why Design Matters</a>
+                    <a href="architecture.html" class="text-gray-900 font-medium hover:text-indigo-600">Architecture Guide</a>
+                    <a href="results.html" class="text-gray-600 hover:text-indigo-600">Results</a>
+                    <a href="mafbench.html" class="text-gray-600 hover:text-indigo-600">MAFBench</a>
+                    <a href="paper.html" class="text-gray-600 hover:text-indigo-600">Paper & Code</a>
+                    <a href="blog.html" class="text-gray-600 hover:text-indigo-600">Blog</a>
+                    <a href="about.html" class="text-gray-600 hover:text-indigo-600">About</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden text-gray-600">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 py-4 space-y-3">
+                <a href="index.html" class="block text-gray-600">Home</a>
+                <a href="design.html" class="block text-gray-600">Why Design Matters</a>
+                <a href="architecture.html" class="block text-gray-900 font-medium">Architecture Guide</a>
+                <a href="results.html" class="block text-gray-600">Results</a>
+                <a href="mafbench.html" class="block text-gray-600">MAFBench</a>
+                <a href="paper.html" class="block text-gray-600">Paper & Code</a>
+                <a href="blog.html" class="block text-gray-600">Blog</a>
+                <a href="about.html" class="block text-gray-600">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-indigo-50 to-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+                Architecture Guide
+            </h1>
+            <p class="text-xl text-gray-600">
+                Your design playbook for building better multi-agent systems
+            </p>
+        </div>
+    </section>
+
+    <!-- Table of Contents -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50 border-b">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-wrap gap-4 justify-center">
+                <a href="#orchestration" class="px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-indigo-500 hover:text-indigo-600 transition">Orchestration</a>
+                <a href="#memory" class="px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-indigo-500 hover:text-indigo-600 transition">Memory</a>
+                <a href="#planning" class="px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-indigo-500 hover:text-indigo-600 transition">Planning</a>
+                <a href="#specialization" class="px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-indigo-500 hover:text-indigo-600 transition">Specialization</a>
+                <a href="#communication" class="px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-indigo-500 hover:text-indigo-600 transition">Communication</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Orchestration -->
+    <section id="orchestration" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-12">
+                <div class="flex items-center mb-4">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-sitemap text-indigo-600 text-3xl"></i>
+                    </div>
+                    <h2 class="text-4xl font-bold text-gray-900">Orchestration</h2>
+                </div>
+                <p class="text-xl text-gray-600">How agents are scheduled and connected</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 mb-12">
+                <div class="bg-green-50 border-2 border-green-200 rounded-xl p-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-check-circle text-green-600 mr-3"></i>
+                        What Works
+                    </h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
+                            <span><strong>Parallel execution:</strong> Run independent agents simultaneously</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
+                            <span><strong>Efficient scheduling:</strong> Minimize idle time between agent calls</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
+                            <span><strong>Lazy evaluation:</strong> Only execute what's needed</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-red-50 border-2 border-red-200 rounded-xl p-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-times-circle text-red-600 mr-3"></i>
+                        What Breaks
+                    </h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
+                            <span><strong>Sequential bottlenecks:</strong> Forcing agents to wait unnecessarily</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
+                            <span><strong>Over-synchronization:</strong> Blocking on every interaction</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
+                            <span><strong>Redundant execution:</strong> Running agents when results aren't needed</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+                <h4 class="text-lg font-bold text-gray-900 mb-2">Practical Takeaway</h4>
+                <p class="text-gray-700">
+                    Orchestration overhead can create 100× latency differences. Design your control flow to maximize 
+                    parallelism and minimize blocking. Use async patterns and only synchronize when truly necessary.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Memory -->
+    <section id="memory" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-12">
+                <div class="flex items-center mb-4">
+                    <div class="w-16 h-16 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-brain text-purple-600 text-3xl"></i>
+                    </div>
+                    <h2 class="text-4xl font-bold text-gray-900">Memory</h2>
+                </div>
+                <p class="text-xl text-gray-600">How information is stored and retrieved</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 mb-12">
+                <div class="bg-green-50 border-2 border-green-200 rounded-xl p-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-check-circle text-green-600 mr-3"></i>
+                        What Works
+                    </h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
+                            <span><strong>Shared context:</strong> Agents can access relevant history</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
+                            <span><strong>Efficient retrieval:</strong> Fast lookup of past interactions</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
+                            <span><strong>Selective memory:</strong> Store what matters, discard noise</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-red-50 border-2 border-red-200 rounded-xl p-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-times-circle text-red-600 mr-3"></i>
+                        What Breaks
+                    </h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
+                            <span><strong>Isolated memory:</strong> Each agent forgets previous context</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
+                            <span><strong>Memory bloat:</strong> Storing everything without filtering</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
+                            <span><strong>Poor indexing:</strong> Slow or missing retrieval mechanisms</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+                <h4 class="text-lg font-bold text-gray-900 mb-2">Practical Takeaway</h4>
+                <p class="text-gray-700">
+                    Memory structure matters more than context size. Design memory to flow between agents efficiently. 
+                    Use shared memory pools, implement smart retrieval, and prune irrelevant information.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Planning -->
+    <section id="planning" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-12">
+                <div class="flex items-center mb-4">
+                    <div class="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-route text-green-600 text-3xl"></i>
+                    </div>
+                    <h2 class="text-4xl font-bold text-gray-900">Planning</h2>
+                </div>
+                <p class="text-xl text-gray-600">How reasoning steps are structured</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 mb-12">
+                <div class="bg-green-50 border-2 border-green-200 rounded-xl p-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-check-circle text-green-600 mr-3"></i>
+                        What Works
+                    </h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
+                            <span><strong>Clear step structure:</strong> Well-defined reasoning stages</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
+                            <span><strong>Iterative refinement:</strong> Allow plans to evolve</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
+                            <span><strong>Feedback loops:</strong> Plans adapt based on execution</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-red-50 border-2 border-red-200 rounded-xl p-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-times-circle text-red-600 mr-3"></i>
+                        What Breaks
+                    </h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
+                            <span><strong>Rigid interfaces:</strong> Forcing unnatural reasoning patterns</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
+                            <span><strong>No iteration:</strong> One-shot planning without refinement</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
+                            <span><strong>Poor abstraction:</strong> Planning API doesn't match LLM capabilities</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+                <h4 class="text-lg font-bold text-gray-900 mb-2">Practical Takeaway</h4>
+                <p class="text-gray-700">
+                    Bad planning interfaces can reduce accuracy by 30%. Design planning APIs that match how LLMs reason. 
+                    Support iterative planning and allow plans to adapt based on execution feedback.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specialization -->
+    <section id="specialization" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-12">
+                <div class="flex items-center mb-4">
+                    <div class="w-16 h-16 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-user-tag text-orange-600 text-3xl"></i>
+                    </div>
+                    <h2 class="text-4xl font-bold text-gray-900">Specialization</h2>
+                </div>
+                <p class="text-xl text-gray-600">How behavior is activated</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 mb-12">
+                <div class="bg-green-50 border-2 border-green-200 rounded-xl p-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-check-circle text-green-600 mr-3"></i>
+                        What Works
+                    </h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
+                            <span><strong>Role-based activation:</strong> Agents have clear, distinct roles</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
+                            <span><strong>Tool specialization:</strong> Agents access relevant tools efficiently</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
+                            <span><strong>Context-aware routing:</strong> Right agent for the right task</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-red-50 border-2 border-red-200 rounded-xl p-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-times-circle text-red-600 mr-3"></i>
+                        What Breaks
+                    </h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
+                            <span><strong>Generic agents:</strong> All agents do everything poorly</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
+                            <span><strong>Poor routing:</strong> Wrong agent handles the task</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
+                            <span><strong>Tool confusion:</strong> Agents can't access needed capabilities</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+                <h4 class="text-lg font-bold text-gray-900 mb-2">Practical Takeaway</h4>
+                <p class="text-gray-700">
+                    Specialization can improve F1 scores by 58 points. Design clear agent roles and efficient routing. 
+                    Give agents access to the right tools and context for their specific function.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Communication -->
+    <section id="communication" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-12">
+                <div class="flex items-center mb-4">
+                    <div class="w-16 h-16 bg-pink-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-network-wired text-pink-600 text-3xl"></i>
+                    </div>
+                    <h2 class="text-4xl font-bold text-gray-900">Communication</h2>
+                </div>
+                <p class="text-xl text-gray-600">How agents talk and coordinate</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 mb-12">
+                <div class="bg-green-50 border-2 border-green-200 rounded-xl p-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-check-circle text-green-600 mr-3"></i>
+                        What Works
+                    </h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
+                            <span><strong>Efficient topologies:</strong> Agents can reach consensus quickly</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
+                            <span><strong>Broadcast patterns:</strong> Important info reaches all agents</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-green-600 mr-2 mt-1"></i>
+                            <span><strong>Minimal rounds:</strong> Coordination converges fast</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-red-50 border-2 border-red-200 rounded-xl p-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-times-circle text-red-600 mr-3"></i>
+                        What Breaks
+                    </h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
+                            <span><strong>Isolated clusters:</strong> Agents can't coordinate across groups</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
+                            <span><strong>Bottleneck nodes:</strong> Single points of failure</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-red-600 mr-2 mt-1"></i>
+                            <span><strong>Slow diffusion:</strong> Information takes too long to spread</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+                <h4 class="text-lg font-bold text-gray-900 mb-2">Practical Takeaway</h4>
+                <p class="text-gray-700">
+                    Communication topology can make coordination success drop from 90% to below 30%. 
+                    Design communication patterns that enable fast information diffusion. Avoid isolated clusters 
+                    and bottleneck nodes. Consider topology when scaling to many agents.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Summary -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-indigo-600">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">Design Principles Summary</h2>
+            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-8 text-left">
+                <ul class="space-y-4 text-indigo-100 text-lg">
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-white mr-3 mt-1"></i>
+                        <span>Maximize parallelism in orchestration; minimize blocking</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-white mr-3 mt-1"></i>
+                        <span>Design memory to flow efficiently between agents</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-white mr-3 mt-1"></i>
+                        <span>Match planning interfaces to LLM reasoning patterns</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-white mr-3 mt-1"></i>
+                        <span>Enable clear agent specialization with proper routing</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-white mr-3 mt-1"></i>
+                        <span>Choose communication topologies that enable fast coordination</span>
+                    </li>
+                </ul>
+            </div>
+            <a href="results.html" class="inline-block mt-8 px-8 py-4 bg-white text-indigo-600 rounded-lg font-semibold text-lg hover:bg-gray-100 transition shadow-lg">
+                See the Results
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">MAFBench</h3>
+                    <p class="text-sm">A unified benchmark for evaluating multi-agent LLM frameworks.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="paper.html" class="hover:text-white">Paper</a></li>
+                        <li><a href="mafbench.html" class="hover:text-white">Benchmark</a></li>
+                        <li><a href="https://github.com/CoDS-GCS/MAFBench" target="_blank" class="hover:text-white">GitHub</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Learn</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="architecture.html" class="hover:text-white">Architecture Guide</a></li>
+                        <li><a href="results.html" class="hover:text-white">Results</a></li>
+                        <li><a href="blog.html" class="hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Connect</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="about.html" class="hover:text-white">About</a></li>
+                        <li><a href="https://github.com/CoDS-GCS/MAFBench" target="_blank" class="hover:text-white">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-sm">
+                <p>&copy; 2024 MAFBench. Research by Concordia University.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>
+

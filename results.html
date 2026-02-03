@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results | MAFBench</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-indigo-600">MAFBench</a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-gray-600 hover:text-indigo-600">Home</a>
+                    <a href="design.html" class="text-gray-600 hover:text-indigo-600">Why Design Matters</a>
+                    <a href="architecture.html" class="text-gray-600 hover:text-indigo-600">Architecture Guide</a>
+                    <a href="results.html" class="text-gray-900 font-medium hover:text-indigo-600">Results</a>
+                    <a href="mafbench.html" class="text-gray-600 hover:text-indigo-600">MAFBench</a>
+                    <a href="paper.html" class="text-gray-600 hover:text-indigo-600">Paper & Code</a>
+                    <a href="blog.html" class="text-gray-600 hover:text-indigo-600">Blog</a>
+                    <a href="about.html" class="text-gray-600 hover:text-indigo-600">About</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden text-gray-600">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 py-4 space-y-3">
+                <a href="index.html" class="block text-gray-600">Home</a>
+                <a href="design.html" class="block text-gray-600">Why Design Matters</a>
+                <a href="architecture.html" class="block text-gray-600">Architecture Guide</a>
+                <a href="results.html" class="block text-gray-900 font-medium">Results</a>
+                <a href="mafbench.html" class="block text-gray-600">MAFBench</a>
+                <a href="paper.html" class="block text-gray-600">Paper & Code</a>
+                <a href="blog.html" class="block text-gray-600">Blog</a>
+                <a href="about.html" class="block text-gray-600">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-indigo-50 to-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+                Results
+            </h1>
+            <p class="text-xl text-gray-600">
+                Same model, same task — wildly different performance
+            </p>
+        </div>
+    </section>
+
+    <!-- Performance Overview -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center text-gray-900 mb-16">Performance Impact of Architecture Choices</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                <div class="bg-gradient-to-br from-red-50 to-orange-50 p-6 rounded-xl border-2 border-red-200">
+                    <div class="text-4xl font-bold text-red-600 mb-2">117×</div>
+                    <div class="text-sm text-gray-600 mb-2">Worst Latency</div>
+                    <div class="text-xs text-gray-500">vs 1.3× best</div>
+                </div>
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border-2 border-blue-200">
+                    <div class="text-4xl font-bold text-blue-600 mb-2">30%</div>
+                    <div class="text-sm text-gray-600 mb-2">Accuracy Drop</div>
+                    <div class="text-xs text-gray-500">from poor planning</div>
+                </div>
+                <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl border-2 border-purple-200">
+                    <div class="text-4xl font-bold text-purple-600 mb-2">90% → 30%</div>
+                    <div class="text-sm text-gray-600 mb-2">Coordination Success</div>
+                    <div class="text-xs text-gray-500">with bad topology</div>
+                </div>
+                <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-xl border-2 border-green-200">
+                    <div class="text-4xl font-bold text-green-600 mb-2">+58</div>
+                    <div class="text-sm text-gray-600 mb-2">F1 Score Gain</div>
+                    <div class="text-xs text-gray-500">from specialization</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Orchestration Latency -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">Orchestration Overhead</h2>
+            <p class="text-center text-gray-600 mb-8">Latency multiplier compared to direct LLM calls</p>
+            
+            <div class="bg-white rounded-xl p-8 shadow-lg">
+                <canvas id="latencyChart" height="80"></canvas>
+            </div>
+            
+            <div class="mt-8 text-center text-gray-600">
+                <p class="text-sm">Best: 1.3× | Worst: 117× | Same model, same task</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Memory Performance -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">Memory Performance</h2>
+            <p class="text-center text-gray-600 mb-8">Overall memory score across frameworks</p>
+            
+            <div class="bg-gray-50 rounded-xl p-8">
+                <canvas id="memoryChart" height="80"></canvas>
+            </div>
+            
+            <div class="mt-8 text-center text-gray-600">
+                <p class="text-sm">Best: 23.8% | Worst: 6.1% | Memory structure matters more than context size</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Planning Accuracy -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">Planning Accuracy</h2>
+            <p class="text-center text-gray-600 mb-8">Accuracy change from baseline with different planning interfaces</p>
+            
+            <div class="bg-white rounded-xl p-8 shadow-lg">
+                <canvas id="planningChart" height="80"></canvas>
+            </div>
+            
+            <div class="mt-8 text-center text-gray-600">
+                <p class="text-sm">Best: +15% | Worst: -30% | Bad interfaces break reasoning</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coordination Success -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">Coordination Success</h2>
+            <p class="text-center text-gray-600 mb-8">Task success rate with different communication topologies</p>
+            
+            <div class="bg-gray-50 rounded-xl p-8">
+                <canvas id="coordinationChart" height="80"></canvas>
+            </div>
+            
+            <div class="mt-8 text-center text-gray-600">
+                <p class="text-sm">Best: >90% | Worst: <30% | Topology decides coordination</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Comparison -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-indigo-600">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center text-white mb-12">Explore the Data</h2>
+            
+            <div class="bg-white rounded-xl p-8">
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-semibold mb-2">Select Dimension:</label>
+                    <select id="dimensionSelect" class="w-full md:w-64 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        <option value="orchestration">Orchestration</option>
+                        <option value="memory">Memory</option>
+                        <option value="planning">Planning</option>
+                        <option value="specialization">Specialization</option>
+                        <option value="coordination">Coordination</option>
+                    </select>
+                </div>
+                
+                <div id="comparisonChart" class="h-96">
+                    <canvas id="dynamicChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Insights -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center text-gray-900 mb-16">Key Insights</h2>
+            
+            <div class="space-y-6">
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Architecture > Model Quality</h3>
+                    <p class="text-gray-700">
+                        Framework-level design choices can create order-of-magnitude differences in performance, 
+                        even when using identical LLM models. The architecture is the bottleneck, not the model.
+                    </p>
+                </div>
+                
+                <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Orchestration is Critical</h3>
+                    <p class="text-gray-700">
+                        How agents are scheduled and connected can create 100× latency differences. 
+                        Parallel execution and efficient scheduling are essential for performance.
+                    </p>
+                </div>
+                
+                <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Memory Structure Matters</h3>
+                    <p class="text-gray-700">
+                        Memory architecture determines what agents remember. Poor memory design leads to 
+                        context loss and repeated mistakes, regardless of context window size.
+                    </p>
+                </div>
+                
+                <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Communication Topology is Decisive</h3>
+                    <p class="text-gray-700">
+                        Coordination success can drop from 90% to below 30% based solely on how agents 
+                        communicate. Topology choice becomes critical at scale.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">MAFBench</h3>
+                    <p class="text-sm">A unified benchmark for evaluating multi-agent LLM frameworks.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="paper.html" class="hover:text-white">Paper</a></li>
+                        <li><a href="mafbench.html" class="hover:text-white">Benchmark</a></li>
+                        <li><a href="https://github.com/CoDS-GCS/MAFBench" target="_blank" class="hover:text-white">GitHub</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Learn</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="architecture.html" class="hover:text-white">Architecture Guide</a></li>
+                        <li><a href="results.html" class="hover:text-white">Results</a></li>
+                        <li><a href="blog.html" class="hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Connect</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="about.html" class="hover:text-white">About</a></li>
+                        <li><a href="https://github.com/CoDS-GCS/MAFBench" target="_blank" class="hover:text-white">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-sm">
+                <p>&copy; 2024 MAFBench. Research by Concordia University.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/results.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>
+

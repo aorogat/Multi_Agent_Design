@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Design Matters | MAFBench</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-indigo-600">MAFBench</a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-gray-600 hover:text-indigo-600">Home</a>
+                    <a href="design.html" class="text-gray-900 font-medium hover:text-indigo-600">Why Design Matters</a>
+                    <a href="architecture.html" class="text-gray-600 hover:text-indigo-600">Architecture Guide</a>
+                    <a href="results.html" class="text-gray-600 hover:text-indigo-600">Results</a>
+                    <a href="mafbench.html" class="text-gray-600 hover:text-indigo-600">MAFBench</a>
+                    <a href="paper.html" class="text-gray-600 hover:text-indigo-600">Paper & Code</a>
+                    <a href="blog.html" class="text-gray-600 hover:text-indigo-600">Blog</a>
+                    <a href="about.html" class="text-gray-600 hover:text-indigo-600">About</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden text-gray-600">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 py-4 space-y-3">
+                <a href="index.html" class="block text-gray-600">Home</a>
+                <a href="design.html" class="block text-gray-900 font-medium">Why Design Matters</a>
+                <a href="architecture.html" class="block text-gray-600">Architecture Guide</a>
+                <a href="results.html" class="block text-gray-600">Results</a>
+                <a href="mafbench.html" class="block text-gray-600">MAFBench</a>
+                <a href="paper.html" class="block text-gray-600">Paper & Code</a>
+                <a href="blog.html" class="block text-gray-600">Blog</a>
+                <a href="about.html" class="block text-gray-600">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-indigo-50 to-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+                Why Design Matters
+            </h1>
+            <p class="text-xl text-gray-600">
+                The hidden factor that makes or breaks multi-agent AI systems
+            </p>
+        </div>
+    </section>
+
+    <!-- The Common Mistake -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">The Common Mistake</h2>
+                <p class="text-xl text-gray-600">Most people focus on the wrong things</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="bg-red-50 border-2 border-red-200 rounded-xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-times text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900">What People Focus On</h3>
+                    </div>
+                    <ul class="space-y-4 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-red-500 mr-3 mt-1"></i>
+                            <span><strong>Bigger models:</strong> "Let's use GPT-4 instead of GPT-3.5"</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-red-500 mr-3 mt-1"></i>
+                            <span><strong>Better prompts:</strong> "We need to engineer better prompts"</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-red-500 mr-3 mt-1"></i>
+                            <span><strong>More context:</strong> "Increase the context window"</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-green-50 border-2 border-green-200 rounded-xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-check text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900">What Actually Matters</h3>
+                    </div>
+                    <ul class="space-y-4 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span><strong>System design:</strong> How agents are orchestrated</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span><strong>Memory architecture:</strong> How information flows</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span><strong>Communication patterns:</strong> How agents coordinate</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Controlled Experiment Proof -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Same Model. Same Task. Only Architecture Changes.</h2>
+                <p class="text-xl text-gray-600">Controlled experiments show architecture alone drives performance differences</p>
+            </div>
+
+            <div class="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-2xl p-8 mb-12 border-2 border-indigo-200">
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-indigo-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-lock text-white text-2xl"></i>
+                        </div>
+                        <p class="font-semibold text-gray-900">Model Fixed</p>
+                        <p class="text-sm text-gray-600">Same LLM</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-indigo-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-lock text-white text-2xl"></i>
+                        </div>
+                        <p class="font-semibold text-gray-900">Task Fixed</p>
+                        <p class="text-sm text-gray-600">Same prompts</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-3 animate-pulse">
+                            <i class="fas fa-sliders-h text-white text-2xl"></i>
+                        </div>
+                        <p class="font-semibold text-gray-900">Architecture Varies</p>
+                        <p class="text-sm text-gray-600">Only this changes</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Architecture Comparison Table -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-4 text-left text-sm font-bold text-gray-900">Architecture Style</th>
+                                <th class="px-6 py-4 text-center text-sm font-bold text-gray-900">Latency</th>
+                                <th class="px-6 py-4 text-center text-sm font-bold text-gray-900">Accuracy</th>
+                                <th class="px-6 py-4 text-center text-sm font-bold text-gray-900">Coordination</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr class="hover:bg-green-50 transition">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center">
+                                        <div class="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
+                                        <span class="font-semibold text-gray-900">Efficient graph-based</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-center">
+                                    <span class="text-green-600 font-bold">~1.3×</span>
+                                </td>
+                                <td class="px-6 py-4 text-center">
+                                    <span class="text-green-600 font-semibold">High</span>
+                                </td>
+                                <td class="px-6 py-4 text-center">
+                                    <span class="text-green-600 font-semibold">High</span>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-yellow-50 transition">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center">
+                                        <div class="w-3 h-3 bg-yellow-500 rounded-full mr-3"></div>
+                                        <span class="font-semibold text-gray-900">Role pipelines</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-center">
+                                    <span class="text-yellow-600 font-bold">5-30×</span>
+                                </td>
+                                <td class="px-6 py-4 text-center">
+                                    <span class="text-yellow-600 font-semibold">Medium</span>
+                                </td>
+                                <td class="px-6 py-4 text-center">
+                                    <span class="text-yellow-600 font-semibold">Medium</span>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-red-50 transition">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center">
+                                        <div class="w-3 h-3 bg-red-500 rounded-full mr-3"></div>
+                                        <span class="font-semibold text-gray-900">Simulation-style</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-center">
+                                    <span class="text-red-600 font-bold">100×+</span>
+                                </td>
+                                <td class="px-6 py-4 text-center">
+                                    <span class="text-red-600 font-semibold">Low</span>
+                                </td>
+                                <td class="px-6 py-4 text-center">
+                                    <span class="text-red-600 font-semibold">Fails</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="bg-gray-50 px-6 py-4 text-sm text-gray-600">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    Measured across multiple frameworks with identical LLM models and tasks
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What Actually Changes Performance -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center text-gray-900 mb-16">What Actually Changes Performance</h2>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl border border-gray-200">
+                    <div class="w-16 h-16 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-tachometer-alt text-yellow-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Overhead</h3>
+                    <p class="text-gray-600">Framework orchestration can add 100× latency. Every agent interaction, every memory lookup, every coordination step adds up.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border border-gray-200">
+                    <div class="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-stream text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Memory Flow</h3>
+                    <p class="text-gray-600">How information moves between agents determines what they remember. Poor memory design means agents forget critical context.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border border-gray-200">
+                    <div class="w-16 h-16 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-project-diagram text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Coordination Bottlenecks</h3>
+                    <p class="text-gray-600">Communication topology can make or break multi-agent tasks. Some patterns enable coordination; others create deadlocks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Real-World Impact -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center text-gray-900 mb-16">Real-World Impact</h2>
+            
+            <div class="space-y-8">
+                <div class="bg-gradient-to-r from-red-50 to-orange-50 border-l-4 border-red-500 p-8 rounded-lg">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center mr-6 flex-shrink-0">
+                            <i class="fas fa-hourglass-half text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900 mb-3">Slow AI Workflows</h3>
+                            <p class="text-gray-700 text-lg mb-2">
+                                Your multi-agent system takes minutes to complete tasks that should take seconds. 
+                                The problem isn't the model — it's how agents are orchestrated.
+                            </p>
+                            <p class="text-sm text-gray-600">
+                                <strong>Example:</strong> A customer service bot that takes 30 seconds to respond because 
+                                each agent waits for the previous one to finish, creating a sequential bottleneck.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-500 p-8 rounded-lg">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mr-6 flex-shrink-0">
+                            <i class="fas fa-memory text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900 mb-3">Agents Forgetting Information</h3>
+                            <p class="text-gray-700 text-lg mb-2">
+                                Agents lose context between interactions. They ask the same questions repeatedly 
+                                or make decisions without critical information.
+                            </p>
+                            <p class="text-sm text-gray-600">
+                                <strong>Example:</strong> A research assistant that forgets what it learned earlier 
+                                in the conversation, forcing users to repeat information.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-purple-50 to-pink-50 border-l-4 border-purple-500 p-8 rounded-lg">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mr-6 flex-shrink-0">
+                            <i class="fas fa-users-slash text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900 mb-3">Teams of Agents Failing to Agree</h3>
+                            <p class="text-gray-700 text-lg mb-2">
+                                Multiple agents working on the same problem can't reach consensus. 
+                                They get stuck in loops or produce conflicting outputs.
+                            </p>
+                            <p class="text-sm text-gray-600">
+                                <strong>Example:</strong> A code review system where multiple agents disagree 
+                                on the same issue, creating confusion instead of clarity.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-indigo-600">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">Ready to Learn the Architecture Principles?</h2>
+            <p class="text-xl text-indigo-100 mb-8">Discover how to design multi-agent systems that actually work.</p>
+            <a href="architecture.html" class="inline-block px-8 py-4 bg-white text-indigo-600 rounded-lg font-semibold text-lg hover:bg-gray-100 transition shadow-lg">
+                Explore the Architecture Guide
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">MAFBench</h3>
+                    <p class="text-sm">A unified benchmark for evaluating multi-agent LLM frameworks.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="paper.html" class="hover:text-white">Paper</a></li>
+                        <li><a href="mafbench.html" class="hover:text-white">Benchmark</a></li>
+                        <li><a href="https://github.com/CoDS-GCS/MAFBench" target="_blank" class="hover:text-white">GitHub</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Learn</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="architecture.html" class="hover:text-white">Architecture Guide</a></li>
+                        <li><a href="results.html" class="hover:text-white">Results</a></li>
+                        <li><a href="blog.html" class="hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Connect</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="about.html" class="hover:text-white">About</a></li>
+                        <li><a href="https://github.com/CoDS-GCS/MAFBench" target="_blank" class="hover:text-white">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-sm">
+                <p>&copy; 2024 MAFBench. Research by Concordia University.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>
+

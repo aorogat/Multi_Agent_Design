@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Agent AI Design Matters | MAFBench - Architecture Changes Everything</title>
+    <meta name="description" content="We show how design choices alone can make AI agents 100× slower, less accurate, or fail at coordination - even with the same LLM. Measured across multiple frameworks.">
+    <meta name="keywords" content="multi-agent AI, LLM frameworks, agent architecture, AI system design, MAFBench, agent orchestration">
+    <meta name="author" content="MAFBench Research Team, Concordia University">
+    <meta property="og:title" content="Multi-Agent AI Systems: Architecture Changes Everything">
+    <meta property="og:description" content="Design choices alone can make AI agents 100× slower. Measured across multiple frameworks with the same LLM.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Multi-Agent AI Design Matters">
+    <meta name="twitter:description" content="Architecture choices can create 100× performance differences - even with the same LLM model.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-indigo-600">MAFBench</a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-gray-900 font-medium hover:text-indigo-600">Home</a>
+                    <a href="design.html" class="text-gray-600 hover:text-indigo-600">Why Design Matters</a>
+                    <a href="architecture.html" class="text-gray-600 hover:text-indigo-600">Architecture Guide</a>
+                    <a href="results.html" class="text-gray-600 hover:text-indigo-600">Results</a>
+                    <a href="mafbench.html" class="text-gray-600 hover:text-indigo-600">MAFBench</a>
+                    <a href="paper.html" class="text-gray-600 hover:text-indigo-600">Paper & Code</a>
+                    <a href="blog.html" class="text-gray-600 hover:text-indigo-600">Blog</a>
+                    <a href="about.html" class="text-gray-600 hover:text-indigo-600">About</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden text-gray-600">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 py-4 space-y-3">
+                <a href="index.html" class="block text-gray-900 font-medium">Home</a>
+                <a href="design.html" class="block text-gray-600">Why Design Matters</a>
+                <a href="architecture.html" class="block text-gray-600">Architecture Guide</a>
+                <a href="results.html" class="block text-gray-600">Results</a>
+                <a href="mafbench.html" class="block text-gray-600">MAFBench</a>
+                <a href="paper.html" class="block text-gray-600">Paper & Code</a>
+                <a href="blog.html" class="block text-gray-600">Blog</a>
+                <a href="about.html" class="block text-gray-600">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-indigo-50 to-white">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
+                Multi-Agent AI Systems Aren't Just About Models<br>
+                <span class="text-indigo-600">Architecture Changes Everything</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-600 mb-8 max-w-4xl mx-auto leading-relaxed">
+                We show how design choices alone can make AI agents <strong class="text-gray-900">100× slower</strong>, 
+                less accurate, or fail at coordination - even with the same LLM.
+            </p>
+            <p class="text-sm md:text-base text-gray-500 mb-12 max-w-3xl mx-auto">
+                Measured across multiple frameworks • Same model, same task • Controlled experiments
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="paper.html" class="px-8 py-4 bg-indigo-600 text-white rounded-lg font-semibold text-lg hover:bg-indigo-700 transition shadow-lg hover:shadow-xl">
+                    <i class="fas fa-file-pdf mr-2"></i> Read the Paper
+                </a>
+                <a href="results.html" class="px-8 py-4 bg-white text-indigo-600 border-2 border-indigo-600 rounded-lg font-semibold text-lg hover:bg-indigo-50 transition">
+                    <i class="fas fa-chart-line mr-2"></i> Explore the Results
+                </a>
+                <a href="https://github.com/CoDS-GCS/MAFBench" target="_blank" class="px-8 py-4 bg-gray-900 text-white rounded-lg font-semibold text-lg hover:bg-gray-800 transition">
+                    <i class="fab fa-github mr-2"></i> View Code
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proof Strip -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold text-indigo-600 mb-1">117×</div>
+                    <div class="text-xs md:text-sm text-gray-600">Worst latency multiplier</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold text-red-600 mb-1">30%</div>
+                    <div class="text-xs md:text-sm text-gray-600">Accuracy drop possible</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold text-purple-600 mb-1">90% → 30%</div>
+                    <div class="text-xs md:text-sm text-gray-600">Coordination success range</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold text-green-600 mb-1">+58</div>
+                    <div class="text-xs md:text-sm text-gray-600">F1 score gain possible</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Story Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center text-gray-900 mb-16">How Architecture Shapes Performance</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 mb-16">
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border border-indigo-100">
+                    <div class="w-16 h-16 bg-indigo-600 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-sitemap text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Orchestration Overhead</h3>
+                    <p class="text-gray-600">How agents are scheduled can create 100× latency differences</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl border border-purple-100">
+                    <div class="w-16 h-16 bg-purple-600 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-brain text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Memory Design</h3>
+                    <p class="text-gray-600">Memory structure matters more than context size alone</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-xl border border-green-100">
+                    <div class="w-16 h-16 bg-green-600 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-route text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Planning Style</h3>
+                    <p class="text-gray-600">Rigid planning interfaces can break reasoning accuracy</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-teal-50 to-cyan-50 p-6 rounded-xl border border-teal-100">
+                    <div class="w-16 h-16 bg-teal-600 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-user-tag text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Agent Specialization</h3>
+                    <p class="text-gray-600">Procedural specialization design can improve F1 scores by 58 points</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-orange-50 to-red-50 p-6 rounded-xl border border-orange-100">
+                    <div class="w-16 h-16 bg-orange-600 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-network-wired text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Agent Communication</h3>
+                    <p class="text-gray-600">Communication topology decides coordination success</p>
+                </div>
+            </div>
+
+            <!-- Simple Animation Diagram -->
+            <div class="bg-gray-50 rounded-2xl p-12 mb-16">
+                <div class="text-center mb-8">
+                    <p class="text-sm text-gray-600 mb-2">Same LLM model • Same task</p>
+                    <p class="text-lg font-semibold text-gray-900">Different framework architectures</p>
+                </div>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-8">
+                    <div class="text-center">
+                        <div class="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center mb-4 mx-auto">
+                            <i class="fas fa-brain text-gray-600 text-4xl"></i>
+                        </div>
+                        <p class="text-sm font-semibold text-gray-700">Direct LLM Call</p>
+                        <p class="text-xs text-gray-500 mt-1">Baseline: 1× latency</p>
+                    </div>
+                    <div class="text-indigo-600 text-2xl">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    <div class="text-center">
+                        <div class="flex gap-2 justify-center mb-4">
+                            <div class="w-16 h-16 bg-green-200 rounded-full flex items-center justify-center border-2 border-green-400">
+                                <i class="fas fa-robot text-green-600 text-2xl"></i>
+                            </div>
+                            <div class="w-16 h-16 bg-green-200 rounded-full flex items-center justify-center border-2 border-green-400">
+                                <i class="fas fa-robot text-green-600 text-2xl"></i>
+                            </div>
+                            <div class="w-16 h-16 bg-green-200 rounded-full flex items-center justify-center border-2 border-green-400">
+                                <i class="fas fa-robot text-green-600 text-2xl"></i>
+                            </div>
+                        </div>
+                        <p class="text-sm font-semibold text-gray-700">Multi-Agent Framework</p>
+                        <p class="text-xs text-green-600 font-semibold mt-1">Best: 1.3× latency</p>
+                        <p class="text-xs text-gray-500">(efficient architecture)</p>
+                    </div>
+                    <div class="text-gray-400 text-xl">
+                        <i class="fas fa-arrows-alt-h"></i>
+                    </div>
+                    <div class="text-center">
+                        <div class="flex gap-2 justify-center mb-4">
+                            <div class="w-16 h-16 bg-red-200 rounded-full flex items-center justify-center border-2 border-red-400">
+                                <i class="fas fa-robot text-red-600 text-2xl"></i>
+                            </div>
+                            <div class="w-16 h-16 bg-red-200 rounded-full flex items-center justify-center border-2 border-red-400">
+                                <i class="fas fa-robot text-red-600 text-2xl"></i>
+                            </div>
+                            <div class="w-16 h-16 bg-red-200 rounded-full flex items-center justify-center border-2 border-red-400">
+                                <i class="fas fa-robot text-red-600 text-2xl"></i>
+                            </div>
+                        </div>
+                        <p class="text-sm font-semibold text-gray-700">Multi-Agent Framework</p>
+                        <p class="text-xs text-red-600 font-semibold mt-1">Worst: 117× latency</p>
+                        <p class="text-xs text-gray-500">(poor architecture)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Takeaways -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-4">
+                <span class="inline-block bg-indigo-100 text-indigo-700 px-4 py-1 rounded-full text-sm font-semibold mb-4">
+                    Based on controlled experiments across multiple frameworks
+                </span>
+            </div>
+            <h2 class="text-4xl font-bold text-center text-gray-900 mb-16">Key Takeaways</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                            <i class="fas fa-bolt text-yellow-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Some frameworks are 100× slower</h3>
+                            <p class="text-gray-600">Just due to design. Same model, same task, wildly different performance. Measured across graph-based, role-based, and GABM-style frameworks.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                            <i class="fas fa-brain text-blue-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Memory structure matters more than context size</h3>
+                            <p class="text-gray-600">How information flows between agents determines what they remember.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                            <i class="fas fa-route text-purple-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Rigid planning interfaces break reasoning</h3>
+                            <p class="text-gray-600">Planning accuracy can drop by 30% with poorly designed architectural choices.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                            <i class="fas fa-handshake text-green-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Communication topology decides coordination success</h3>
+                            <p class="text-gray-600">Success rates can drop from 90% to below 30% based on how agents communicate.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Proposition for Builders -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">Why This Matters for Builders</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-dollar-sign text-indigo-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Cost Impact</h3>
+                    <p class="text-gray-600">100× latency means 100× API costs. Architecture choices directly affect your infrastructure spend.</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-rocket text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Time to Market</h3>
+                    <p class="text-gray-600">Choose the wrong framework architecture and you'll spend months optimizing instead of building features.</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-chart-line text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Scalability</h3>
+                    <p class="text-gray-600">Architectural bottlenecks become impossible to fix at scale. Get it right from the start.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-indigo-600">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">Want to Design Better Multi-Agent Systems?</h2>
+            <p class="text-xl text-indigo-100 mb-8">Learn the architectural principles that make or break AI agent performance.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="architecture.html" class="inline-block px-8 py-4 bg-white text-indigo-600 rounded-lg font-semibold text-lg hover:bg-gray-100 transition shadow-lg">
+                    Explore the Architecture Guide
+                </a>
+                <a href="results.html" class="inline-block px-8 py-4 bg-indigo-500 text-white rounded-lg font-semibold text-lg hover:bg-indigo-400 transition">
+                    See All Results
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">MAFBench</h3>
+                    <p class="text-sm">A unified benchmark for evaluating multi-agent LLM frameworks.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="paper.html" class="hover:text-white">Paper</a></li>
+                        <li><a href="mafbench.html" class="hover:text-white">Benchmark</a></li>
+                        <li><a href="https://github.com/CoDS-GCS/MAFBench" target="_blank" class="hover:text-white">GitHub</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Learn</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="architecture.html" class="hover:text-white">Architecture Guide</a></li>
+                        <li><a href="results.html" class="hover:text-white">Results</a></li>
+                        <li><a href="blog.html" class="hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Connect</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="about.html" class="hover:text-white">About</a></li>
+                        <li><a href="https://github.com/CoDS-GCS/MAFBench" target="_blank" class="hover:text-white">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-sm">
+                <p>&copy; 2024 MAFBench. Research by Concordia University.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating CTA -->
+    <div class="fixed bottom-8 right-8 z-50">
+        <a href="paper.html" class="bg-indigo-600 text-white px-6 py-3 rounded-full shadow-lg hover:bg-indigo-700 transition flex items-center gap-2">
+            <i class="fas fa-file-pdf"></i>
+            <span class="hidden sm:inline">Read the Paper</span>
+        </a>
+    </div>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>
+
